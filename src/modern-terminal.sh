@@ -14,10 +14,10 @@ sleep 1
 # Copy zsh and hyper js files
 printf "\n===================="
 printf "\nCoping config files\n"
-cp -v ../modern-terminal/.p10k.zsh \
-      ../modern-terminal/.hyper.js \
-      ../modern-terminal/.zshrc \
-      ../modern-terminal/.zsh-autosuggestions.zsh ~/ 
+cp -v modern-terminal/.p10k.zsh \
+      modern-terminal/.hyper.js \
+      modern-terminal/.zshrc \
+      modern-terminal/.zsh-autosuggestions.zsh ~/ 
 sleep 1
 
 # Install hyper
