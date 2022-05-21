@@ -30,121 +30,124 @@ for ((i=0; $i < $enum_lenght; i++)); do
 done
 
 
-elixir_check=$(whereis elixir)
-phoenix_check=$(ls ~/.mix/archives | grep "phx")
-postgresql_check=$(whereis psql)
-docker_check=$(whereis docker)
-dockercompose_check=$(whereis compose)
-git_check=$(whereis git)
-vscode_check=$(whereis code)
-dbeaver_check=$(whereis dbeaver)  
-zsh_check=$(whereis zsh)
-hyper_check=$(whereis hyper)
-firacode_check=$(fc-list | grep -V "Fira Code Nerd Font")
-dracula_theme_check=$(xfconf-query -c xsettings -p /Net/ThemeName -v)
-paper_theme_check=$(sudo apt list --installed | grep "paper-icon-theme")
-telegram_check=$(ls /opt)
-vlc_check=$(whereis vlc)
-brightness_and_temperature_files_check=$(ls -a ~/)
-brightness_and_temperature_shortcut_check=$(xfconf-query -c xfce4-keyboard-shortcuts -p /commands/custom -lv)
-
-
 # Define array elements
 array[all]="Install All"
+function checks() {
 
-if [[ "$elixir_check" == *"/usr/bin/elixir"* ]]; then
-    array[elixir]="* Elixir"
-else
-    array[elixir]="** Elixir"
-fi
+    elixir_check=$(whereis elixir)
+    phoenix_check=$(ls ~/.mix/archives | grep "phx")
+    postgresql_check=$(whereis psql)
+    docker_check=$(whereis docker)
+    dockercompose_check=$(whereis compose)
+    git_check=$(whereis git)
+    vscode_check=$(whereis code)
+    dbeaver_check=$(whereis dbeaver)  
+    zsh_check=$(whereis zsh)
+    hyper_check=$(whereis hyper)
+    firacode_check=$(fc-list | grep -V "Fira Code Nerd Font")
+    dracula_theme_check=$(xfconf-query -c xsettings -p /Net/ThemeName -v)
+    paper_theme_check=$(sudo apt list --installed | grep "paper-icon-theme")
+    telegram_check=$(ls /opt)
+    vlc_check=$(whereis vlc)
+    brightness_and_temperature_files_check=$(ls -a ~/)
+    brightness_and_temperature_shortcut_check=$(xfconf-query -c xfce4-keyboard-shortcuts -p /commands/custom -lv)
 
-if [[ "$phoenix_check" == *"phx_new"* ]]; then
-    array[phoenix]="* Phoenix"
-else
-    array[phoenix]="** Phoenix"
-fi
 
-if [[ "$postgresql_check" == *"/usr/bin/psql"* ]]; then
-    array[postgresql]="* PostgreSQL"
-else
-    array[postgresql]="** PostgreSQL"
-fi
+    if [[ "$elixir_check" == *"/usr/bin/elixir"* ]]; then
+        array[elixir]="* Elixir"
+    else
+        array[elixir]="** Elixir"
+    fi
 
-if [[ "$docker_check" == *"/etc/docker"* && 
-       "$dockercompose_check" == *"/usr/bin/compose"* ]]; then
-    array[docker]="* Docker"
-else 
-    array[docker]="** Docker" 
-fi
+    if [[ "$phoenix_check" == *"phx_new"* ]]; then
+        array[phoenix]="* Phoenix"
+    else
+        array[phoenix]="** Phoenix"
+    fi
 
-if [[ "$git_check" == *"/usr/bin/git"* ]]; then
-    array[git]="* Git"
-else
-    array[git]="** Git"
-fi
+    if [[ "$postgresql_check" == *"/usr/bin/psql"* ]]; then
+        array[postgresql]="* PostgreSQL"
+    else
+        array[postgresql]="** PostgreSQL"
+    fi
 
-if [[ "$vscode_check" == *"/usr/bin/code"* ]]; then
-    array[vscode]="* VS Code"
-else
-    array[vscode]="** VS Code"
-fi
+    if [[ "$docker_check" == *"/etc/docker"* && 
+        "$dockercompose_check" == *"/usr/bin/compose"* ]]; then
+        array[docker]="* Docker"
+    else 
+        array[docker]="** Docker" 
+    fi
 
-if [[ "$dbeaver_check" == *"/usr/bin/dbeaver"* ]]; then
-    array[dbeaver]="* Dbeaver"
-else
-    array[dbeaver]="** Dbeaver"
-fi
+    if [[ "$git_check" == *"/usr/bin/git"* ]]; then
+        array[git]="* Git"
+    else
+        array[git]="** Git"
+    fi
 
-if [[ "$zsh_check" == *"/usr/bin/zsh"* &&
-      "$hyper_check" == *"/bin/hyper"* && 
-      "$firacode_check" == *"by Mike Haertel"* 
-    ]]; then
-    array[modern_terminal]="* Modern terminal"
-else
-    array[modern_terminal]="** Modern terminal "
-fi
+    if [[ "$vscode_check" == *"/usr/bin/code"* ]]; then
+        array[vscode]="* VS Code"
+    else
+        array[vscode]="** VS Code"
+    fi
 
-if [[ "$dracula_theme_check" == *"Dracula"* ]]; then
-    array[dracula_theme]="* Dracula Theme"
-else
-    array[dracula_theme]="** Dracula Theme"
-fi
+    if [[ "$dbeaver_check" == *"/usr/bin/dbeaver"* ]]; then
+        array[dbeaver]="* Dbeaver"
+    else
+        array[dbeaver]="** Dbeaver"
+    fi
 
-if [[ "$paper_theme_check" == *"paper-icon-theme"* ]]; then
-    array[paper_theme]="* Paper Theme Dev Icons"
-else
-    array[paper_theme]="** Paper Theme Dev Icons"
-fi
+    if [[ "$zsh_check" == *"/usr/bin/zsh"* &&
+        "$hyper_check" == *"/bin/hyper"* && 
+        "$firacode_check" == *"by Mike Haertel"* 
+        ]]; then
+        array[modern_terminal]="* Modern terminal"
+    else
+        array[modern_terminal]="** Modern terminal "
+    fi
 
-if [[ "$brightness_and_temperature_files_check" == *"brightness-decrease.sh"* &&
-      "$brightness_and_temperature_files_check" == *"brightness-increase.sh"* &&
-      "$brightness_and_temperature_files_check" == *"color-temp-decrease.sh"* &&
-      "$brightness_and_temperature_files_check" == *"color-temp-increase.sh"* &&
-      "$brightness_and_temperature_shortcut_check" == *"brightness-decrease.sh"* &&
-      "$brightness_and_temperature_shortcut_check" == *"brightness-increase.sh"* &&
-      "$brightness_and_temperature_shortcut_check" == *"color-temp-decrease.sh"* &&
-      "$brightness_and_temperature_shortcut_check" == *"color-temp-increase.sh"* 
-    ]]; then
-    array[brightness_and_temperature]="* Brightness and Temperature Control"
-else
-    array[brightness_and_temperature]="** Brightness and Temperature Control"
-fi
+    if [[ "$dracula_theme_check" == *"Dracula"* ]]; then
+        array[dracula_theme]="* Dracula Theme"
+    else
+        array[dracula_theme]="** Dracula Theme"
+    fi
 
-if [[ "$telegram_check" == *"Telegram"* ]]; then
-    array[telegram]="* Telegram"
-else
-    array[telegram]="** Telegram"
-fi
+    if [[ "$paper_theme_check" == *"paper-icon-theme"* ]]; then
+        array[paper_theme]="* Paper Theme Dev Icons"
+    else
+        array[paper_theme]="** Paper Theme Dev Icons"
+    fi
 
-if [[ "$vlc_check" == *"/snap/bin/vlc"* ]]; then
-    array[vlc]="* VLC"
-else
-    array[vlc]="** VLC"
-fi
+    if [[ "$brightness_and_temperature_files_check" == *"brightness-decrease.sh"* &&
+        "$brightness_and_temperature_files_check" == *"brightness-increase.sh"* &&
+        "$brightness_and_temperature_files_check" == *"color-temp-decrease.sh"* &&
+        "$brightness_and_temperature_files_check" == *"color-temp-increase.sh"* &&
+        "$brightness_and_temperature_shortcut_check" == *"brightness-decrease.sh"* &&
+        "$brightness_and_temperature_shortcut_check" == *"brightness-increase.sh"* &&
+        "$brightness_and_temperature_shortcut_check" == *"color-temp-decrease.sh"* &&
+        "$brightness_and_temperature_shortcut_check" == *"color-temp-increase.sh"* 
+        ]]; then
+        array[brightness_and_temperature]="* Brightness and Temperature Control"
+    else
+        array[brightness_and_temperature]="** Brightness and Temperature Control"
+    fi
+
+    if [[ "$telegram_check" == *"Telegram"* ]]; then
+        array[telegram]="* Telegram"
+    else
+        array[telegram]="** Telegram"
+    fi
+
+    if [[ "$vlc_check" == *"/snap/bin/vlc"* ]]; then
+        array[vlc]="* VLC"
+    else
+        array[vlc]="** VLC"
+    fi
+}
 
 array[quit]="Quit"
 
 function loop() {
+    checks
     printf "\nEnter the number of the option to install:\n"
     printf "(*) - installed\n"
     printf "(**) - not installed\n\n"
