@@ -29,6 +29,8 @@ for ((i=0; $i < $enum_lenght; i++)); do
     declare ${name}=$i 
 done
 
+# Create elixir packages folder
+mkdir -p ~/.mix/archives
 
 # Define array elements
 array[all]="Install All"
