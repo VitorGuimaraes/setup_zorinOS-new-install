@@ -4,7 +4,7 @@ printf "\nInstalling Modern Terminal...\n\n"
 sleep 1
 
 # Install and set zsh terminal:
-sudo apt-get install zsh cargo -y && cargo install exa 
+sudo apt install zsh cargo -y && cargo install exa 
 printf "\n===================================================="
 printf "\nChanging shell to zsh. Please, insert your password:"
 printf "\n====================================================\n"

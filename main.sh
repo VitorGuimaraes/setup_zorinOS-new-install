@@ -64,7 +64,7 @@ else
     array[phoenix]="** Phoenix"
 fi
 
-if [[ "$postgresql_check" == *"usr/bin/psql"* ]]; then
+if [[ "$postgresql_check" == *"/usr/bin/psql"* ]]; then
     array[postgresql]="* PostgreSQL"
 else
     array[postgresql]="** PostgreSQL"

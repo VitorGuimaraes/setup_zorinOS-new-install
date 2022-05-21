@@ -3,7 +3,7 @@
 printf "\nInstalling Paper Theme With Dev Icons...\n\n"
 sleep 1
 
-sudo apt-get install paper-icon-theme -y
+sudo apt install paper-icon-theme -y
 
 sudo cp -v ../PaperThemeDevIcons/dockerfile.xml /usr/share/mime/packages
 
