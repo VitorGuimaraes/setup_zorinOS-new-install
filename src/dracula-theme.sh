@@ -1,6 +1,6 @@
 #!/bin/bash
 
-printf "\nInstalling Dracula Theme...\n"
+printf "\nInstalling Dracula Theme...\n\n"
 sleep 1
 
 wget https://github.com/dracula/gtk/archive/master.zip 
