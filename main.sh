@@ -100,7 +100,7 @@ function checks() {
 
     if [[ "$zsh_check" == *"/usr/bin/zsh"* &&
         "$hyper_check" == *"/bin/hyper"* && 
-        "$firacode_check" == *"by Mike Haertel"* 
+        "$firacode_check" == *"Mike Haertel"* 
         ]]; then
         array[modern_terminal]="* Modern terminal"
     else
