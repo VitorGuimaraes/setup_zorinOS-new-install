@@ -11,3 +11,5 @@ clear
 printf "==================="
 printf "\nTelegram installed!"
 printf "\n===================\n\n"
+printf "\nRun: \n/opt/Telegram/./Telegram\n"
+sleep 2
