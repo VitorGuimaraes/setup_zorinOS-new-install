@@ -55,7 +55,7 @@ array[all]="Install All"
 if [[ "$elixir_check" == *"/usr/bin/elixir"* ]]; then
     array[elixir]="* Elixir"
 elif [[ "$elixir_check" == *"not found"* ]]; then
-    array[postgresql]="** Elixir"
+    array[elixir]="** Elixir"
 fi
 
 if [[ "$phoenix_check" == *"phx_new"* ]]; then
