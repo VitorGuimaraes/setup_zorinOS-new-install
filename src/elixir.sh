@@ -11,7 +11,14 @@ sudo apt install esl-erlang elixir -y
 sudo rm erlang-solutions_2.0_all.deb
 
 clear
-elixir --version
+elixir_check=$(whereis elixir)
+
 printf "================="
-printf "\nElixir installed!"
+if [[ "$elixir_check" == *"/usr/bin/elixir"* ]]; then
+    elixir --version
+    printf "\nElixir installed!"
+else
+    printf "\nElixir not installed! Check for errors..."
+    sleep 2
+fi
 printf "\n=================\n\n"
