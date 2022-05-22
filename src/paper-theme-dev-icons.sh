@@ -21,6 +21,8 @@ sudo cp -v ../PaperThemeDevIcons/icons/*.svg /usr/share/icons/hicolor/scalable/m
 
 sudo gtk-update-icon-cache /usr/share/icons/hicolor/ -f
 
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Paper"
+
 clear
 printf "================================="
 printf "\nPaper Theme Icons installed!" 
