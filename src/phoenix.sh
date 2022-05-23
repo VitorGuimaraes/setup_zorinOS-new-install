@@ -1,12 +1,16 @@
 #!/bin/bash
 
 printf "\nInstalling Phoenix...\n\n"
-sleep 1
 
 mkdir -p logs 
 printf "" > logs/logs_phoenix.txt
 
 printf "************************ $(date +"%D %T") ************************ 
+→ mix local.hex --force \n\n%s" \
+"$(mix local.hex --force )" \
+| tee -a logs/logs_phoenix.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
 → mix archive.install hex phx_new --force \n\n%s" \
 "$(mix archive.install hex phx_new --force)" \
 | tee -a logs/logs_phoenix.txt
