@@ -93,9 +93,9 @@ function checks() {
     fi
 
     if [[ "$insomnia_check" == *"/snap/bin/insomnia"* ]]; then
-        array[vscode]="* Insomnia"
+        array[insomnia]="* Insomnia"
     else
-        array[vscode]="** Insomnia"
+        array[insomnia]="** Insomnia"
     fi
     
 
