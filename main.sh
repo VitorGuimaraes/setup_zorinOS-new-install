@@ -176,10 +176,12 @@ function loop() {
             bash src/docker.sh
             bash src/git.sh
             bash src/vscode.sh
+            bash src/insomnia.sh
             bash src/dbeaver.sh
             bash src/modern-terminal.sh
             bash src/dracula-theme.sh
             bash src/paper-theme-dev-icons.sh
+            bash src/brightness-and-temperature.sh
             bash src/telegram.sh
             bash src/vlc.sh
             loop
