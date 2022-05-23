@@ -7,8 +7,8 @@ mkdir -p logs
 printf "" > logs/logs_dracula_theme.txt
 
 printf "************************ $(date +"%D %T") ************************ 
-→ wget https://github.com/dracula/gtk/archive/master.zip\n\n%s" \
-"$(wget https://github.com/dracula/gtk/archive/master.zip 2>&1)" \
+→ wget -q https://github.com/dracula/gtk/archive/master.zip\n\n%s" \
+"$(wget -q https://github.com/dracula/gtk/archive/master.zip 2>&1)" \
 | tee -a logs/logs_dracula_theme.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 

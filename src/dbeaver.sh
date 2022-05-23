@@ -6,8 +6,8 @@ mkdir -p logs
 printf "" > logs/logs_dbeaver.txt
 
 printf "************************ $(date +"%D %T") ************************ 
-→ wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb \n\n%s" \
-"$(wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb 2>&1)" \
+→ wget -q https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb \n\n%s" \
+"$(wget -q https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb 2>&1)" \
 | tee -a logs/logs_dbeaver.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 

@@ -7,8 +7,8 @@ mkdir -p logs
 printf "" > logs/logs_elixir.txt
 
 printf "************************ $(date +"%D %T") ************************ 
-→ wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb\n\n%s" \
-"$(wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb 2>&1)" \
+→ wget -q https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb\n\n%s" \
+"$(wget -q https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb 2>&1)" \
 | tee -a logs/logs_elixir.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 

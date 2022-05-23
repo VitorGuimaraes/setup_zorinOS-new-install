@@ -14,8 +14,8 @@ printf "%s\n" "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pg
 | sudo tee /etc/apt/sources.list.d/pgdg.list
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
-→ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - \n\n %s" \
-"$(wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -  2>&1)" \
+→ wget -q -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - \n\n %s" \
+"$(wget -q -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -  2>&1)" \
 | tee -a logs/logs_postgresql.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
