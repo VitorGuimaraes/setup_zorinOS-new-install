@@ -6,7 +6,7 @@ mkdir -p logs
 printf "" > logs/logs_phoenix.txt
 
 printf "************************ $(date +"%D %T") ************************ 
-→ mix local.hex --force \n\n%s" \
+→ mix local.hex --force \n%s" \
 "$(mix local.hex --force )" \
 | tee -a logs/logs_phoenix.txt
 
