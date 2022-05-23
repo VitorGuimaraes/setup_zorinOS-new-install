@@ -47,6 +47,7 @@ function checks() {
     hyper_check=$(whereis hyper)
     firacode_check=$(fc-list | grep "Fira Code Regular Nerd Font Complete.ttf")
     exa_check=$(whereis exa)
+    power_level10k_check=$(ls -a ~/)
     dracula_theme_check=$(xfconf-query -c xsettings -p /Net/ThemeName -v)
     paper_theme_check=$(ls /usr/share/icons | grep Paper)
     telegram_check=$(whereis telegram-desktop)
@@ -108,7 +109,9 @@ function checks() {
     if [[ "$zsh_check" == *"/usr/bin/zsh"* &&
           "$hyper_check" == *"/bin/hyper"* && 
           "$firacode_check" == *"Fira Code Regular Nerd Font"*  &&
-          "$exa_check" == *".cargo/bin/exa"*
+          "$exa_check" == *".cargo/bin/exa"* && 
+          "$power_level10k_check" == *".powerlevel10k"*
+          
         ]]; then
         array[modern_terminal]="* Modern terminal"
     else
