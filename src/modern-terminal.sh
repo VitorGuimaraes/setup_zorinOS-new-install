@@ -18,11 +18,11 @@ printf "\n\n************************ $(date +"%D %T") ************************
 
 printf "\n\n************************ $(date +"%D %T") ************************" \
 | tee -a logs/logs_modern_terminal.txt
-printf "\n→ sudo chsh -s /usr/bin/zsh" | tee -a logs/logs_modern_terminal.txt
+printf "\n→ chsh -s /usr/bin/zsh" | tee -a logs/logs_modern_terminal.txt
 printf "\n====================================================" | tee -a logs/logs_modern_terminal.txt
 printf "\nChanging shell to zsh. Please, insert your password:" | tee -a logs/logs_modern_terminal.txt
 printf "\n====================================================" | tee -a logs/logs_modern_terminal.txt
-printf "\n%s" "$(sudo chsh -s /usr/bin/zsh)" | tee -a logs/logs_modern_terminal.txt
+printf "\n%s" "$(chsh -s /usr/bin/zsh)" | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → cp -v modern-terminal/.p10k.zsh ~/ 2>&1\n%s" \
