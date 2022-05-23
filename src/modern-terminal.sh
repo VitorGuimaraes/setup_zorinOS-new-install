@@ -22,7 +22,7 @@ printf "\n→ sudo chsh -s /usr/bin/zsh" | tee -a logs/logs_modern_terminal.txt
 printf "\n====================================================" | tee -a logs/logs_modern_terminal.txt
 printf "\nChanging shell to zsh. Please, insert your password:" | tee -a logs/logs_modern_terminal.txt
 printf "\n====================================================" | tee -a logs/logs_modern_terminal.txt
-printf "$(sudo chsh -s /usr/bin/zsh)" | tee -a logs/logs_modern_terminal.txt
+printf "\n%s" "$(sudo chsh -s /usr/bin/zsh)" | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → cp -v modern-terminal/.p10k.zsh ~/ 2>&1\n%s" \
@@ -45,8 +45,8 @@ printf "\n\n************************ $(date +"%D %T") ************************
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
-→ wget https://releases.hyper.is/download/deb\n\n %s" \
-"$(wget https://releases.hyper.is/download/deb 2>&1)" \
+→ wget -q https://releases.hyper.is/download/deb\n\n %s" \
+"$(wget -q https://releases.hyper.is/download/deb 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
@@ -77,8 +77,8 @@ printf "\n\n************************ $(date +"%D %T") ************************
 | tee -a logs/logs_modern_terminal.txt
 
 printf "************************ $(date +"%D %T") ************************ 
-→ wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip\n\n %s" \
-"$(wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip 2>&1)" \
+→ wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip\n\n %s" \
+"$(wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
