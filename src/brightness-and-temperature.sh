@@ -12,8 +12,8 @@ printf "************************ $(date +"%D %T") ************************
 | tee -a logs/logs_brightness_and_temperature.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
-→ cp -v brightness-and-temperature/brightness-decrease.sh ~/.brightness-increase.sh 2>&1 \n%s" \
-"$(cp -v brightness-and-temperature/brightness-decrease.sh ~/.brightness-increase.sh 2>&1)" \
+→ cp -v brightness-and-temperature/brightness-increase.sh ~/.brightness-increase.sh 2>&1 \n%s" \
+"$(cp -v brightness-and-temperature/brightness-increase.sh ~/.brightness-increase.sh 2>&1)" \
 | tee -a logs/logs_brightness_and_temperature.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
@@ -37,13 +37,13 @@ printf "\n************************ $(date +"%D %T") ************************
 | tee -a logs/logs_brightness_and_temperature.txt
 
 printf "\n************************ $(date +"%D %T") ************************ 
-→ xfconf-query --create --channel xfce4-keyboard-shortcuts --property '/commands/custom/<Super><Alt>Right' --type string --set ~/.color-temp-increase.sh\n%s" \
-"$(xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/commands/custom/<Super><Alt>Right" --type string --set ~/.color-temp-increase.sh)" \
+→ xfconf-query --create --channel xfce4-keyboard-shortcuts --property '/commands/custom/<Super><Alt>Left' --type string --set ~/.color-temp-decrease.sh\n%s" \
+"$(xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/commands/custom/<Super><Alt>Left" --type string --set ~/.color-temp-decrease.sh)" \
 | tee -a logs/logs_brightness_and_temperature.txt
 
 printf "\n************************ $(date +"%D %T") ************************ 
-→ xfconf-query --create --channel xfce4-keyboard-shortcuts --property '/commands/custom/<Super><Alt>Left' --type string --set ~/.color-temp-decrease.sh\n%s" \
-"$(xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/commands/custom/<Super><Alt>Left" --type string --set ~/.color-temp-decrease.sh)" \
+→ xfconf-query --create --channel xfce4-keyboard-shortcuts --property '/commands/custom/<Super><Alt>Right' --type string --set ~/.color-temp-increase.sh\n%s" \
+"$(xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/commands/custom/<Super><Alt>Right" --type string --set ~/.color-temp-increase.sh)" \
 | tee -a logs/logs_brightness_and_temperature.txt
 
 
