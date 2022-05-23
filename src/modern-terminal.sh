@@ -21,7 +21,7 @@ printf "\n\n************************ $(date +"%D %T") ************************" 
 printf "\n→ chsh -s /usr/bin/zsh" | tee -a logs/logs_modern_terminal.txt
 printf "\n====================================================" | tee -a logs/logs_modern_terminal.txt
 printf "\nChanging shell to zsh. Please, insert your password:" | tee -a logs/logs_modern_terminal.txt
-printf "\n====================================================" | tee -a logs/logs_modern_terminal.txt
+printf "\n====================================================\n" | tee -a logs/logs_modern_terminal.txt
 printf "\n%s" "$(chsh -s /usr/bin/zsh)" | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
@@ -91,11 +91,16 @@ printf "\n\n************************ $(date +"%D %T") ************************
 "$(sudo rm -v FiraCode.zip 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k\n\n%s" \
+"$(git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k)" \
+| tee -a logs/logs_modern_terminal.txt
 
 zsh_check=$(whereis zsh)
 hyper_check=$(whereis hyper)
 firacode_check=$(fc-list | grep "Fira Code Regular Nerd Font Complete.ttf")
 exa_check=$(whereis exa)
+power_level10k_check=$(ls -a ~/)
 clear 
 
 printf "\n\n************************ $(date +"%D %T") ************************" \
@@ -130,11 +135,20 @@ else
 	"\nExa not installed! Check logs for errors..." | tee -a logs/logs_modern_terminal.txt
 fi
 
+printf "\n************************ $(date +"%D %T") ************************" \
+    | tee -a logs/logs_modern_terminal.txt
+if [[ "$power_level10k_check" == *".powerlevel10k"* ]]; then 
+    printf "\nPowerlevel10k installed!" | tee -a logs/logs_modern_terminal.txt
+else 
+	"\nPowerlevel10k not installed! Check logs for errors..." | tee -a logs/logs_modern_terminal.txt
+fi
+
 
 if [[ "$zsh_check" == *"/usr/bin/zsh"* &&
 	  "$hyper_check" == *"/bin/hyper"* && 
 	  "$firacode_check" == *"Fira Code Regular Nerd Font"* &&
-	  "$exa_check" == *".cargo/bin/exa"*
+	  "$exa_check" == *".cargo/bin/exa"* &&
+	  "$power_level10k_check" == *".powerlevel10k"* 
 	]]; then
 	printf "\n************************ $(date +"%D %T") ************************" 
 	printf "\nModern Terminal installed!"
