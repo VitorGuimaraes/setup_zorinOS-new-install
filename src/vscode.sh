@@ -3,13 +3,46 @@
 printf "\nInstalling VS Code...\n\n"
 sleep 1
 
-sudo apt update -y
-sudo apt install software-properties-common apt-transport-https wget -y
-wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-sudo apt install code -y
+mkdir -p logs 
+printf "" > logs/logs_vscode.txt
 
+printf "************************ $(date +"%D %T") ************************ 
+→ sudo apt update -y \n\n%s" \
+"$(sudo apt update -y)" \
+| tee -a logs/logs_vscode.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo apt install software-properties-common apt-transport-https wget -y\n\n%s" \
+"$(sudo apt install software-properties-common apt-transport-https wget -y)" \
+| tee -a logs/logs_vscode.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - \n\n%s" \
+"$(wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - 2>&1)" \
+| tee -a logs/logs_vscode.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo add-apt-repository 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main' \n\n%s" \
+"$(sudo add-apt-repository 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main' 2>&1)" \
+| tee -a logs/logs_vscode.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo apt install code -y\n\n%s" \
+"$(sudo apt install code -y)" \
+| tee -a logs/logs_vscode.txt
+
+
+vscode_check=$(whereis code)
 clear
-printf "================="
-printf "\nVSCode installed!"
-printf "\n=================\n\n"
+
+if [[ "$vscode_check" == *"/usr/bin/code"* ]]; then
+    printf "\n\n************************ $(date +"%D %T") ************************" \
+    | tee -a logs/logs_vscode.txt
+    printf "\n→ code --version\n" | tee -a logs/logs_vscode.txt 
+    printf "$(code --version) \n" | tee -a logs/logs_vscode.txt 
+    printf "VS Code installed!"
+else
+    printf "VS Code not installed! Check logs for errors..."
+    sleep 2
+fi
+printf "\n*******************************************************************\n"

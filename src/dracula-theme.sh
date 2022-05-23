@@ -3,18 +3,59 @@
 printf "\nInstalling Dracula Theme...\n\n"
 sleep 1
 
-wget https://github.com/dracula/gtk/archive/master.zip 
-unzip master.zip 
-sudo mv gtk-master Dracula
-sudo mv -v Dracula /usr/share/themes
-sudo rm master.zip
+mkdir -p logs 
+printf "" > logs/logs_dracula_theme.txt
 
-sudo rm -Rf gtk-master
-sudo rm -Rf Dracula
+printf "************************ $(date +"%D %T") ************************ 
+→ wget https://github.com/dracula/gtk/archive/master.zip\n\n%s" \
+"$(wget https://github.com/dracula/gtk/archive/master.zip 2>&1)" \
+| tee -a logs/logs_dracula_theme.txt
 
-xfconf-query -c xsettings -p /Net/ThemeName -s "Dracula"
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ unzip master.zip 2>&1 \n\n%s" \
+"$(unzip master.zip 2>&1 )" \
+| tee -a logs/logs_dracula_theme.txt
 
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo mv -v gtk-master Dracula 2>&1\n%s" \
+"$(sudo mv -v gtk-master Dracula 2>&1)" \
+| tee -a logs/logs_dracula_theme.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo mv -v Dracula /usr/share/themes 2>&1\n%s" \
+"$(sudo mv -v Dracula /usr/share/themes 2>&1)" \
+| tee -a logs/logs_dracula_theme.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo rm -v master.zip 2>&1\n%s" \
+"$(sudo rm -v master.zip 2>&1)" \
+| tee -a logs/logs_dracula_theme.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo rm -rf -v gtk-master 2>&1\n%s" \
+"$(sudo rm -rf -v gtk-master 2>&1)" \
+| tee -a logs/logs_dracula_theme.txt
+
+printf "\n************************ $(date +"%D %T") ************************ 
+→ sudo rm -rf -v Dracula\n\n%s" \
+"$(sudo rm -rf -v Dracula 2>&1)" \
+| tee -a logs/logs_dracula_theme.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************
+→ xfconf-query -c xsettings -p /Net/ThemeName -s "Dracula"%s" \
+"$(xfconf-query -c xsettings -p /Net/ThemeName -s "Dracula")" \
+| tee -a logs/logs_dracula_theme.txt
+
+
+dracula_theme_check=$(xfconf-query -c xsettings -p /Net/ThemeName -v)
 clear
-printf "========================"
-printf "\nDracula theme installed!"
-printf "\n========================\n\n"
+
+if [[ "$dracula_theme_check" == *"Dracula"* ]]; then
+    printf "************************ $(date +"%D %T") ************************" \
+    | tee -a logs/logs_dracula_theme.txt
+    printf "\nDracula Theme installed!"
+else
+    printf "Dracula Theme not installed! Check logs for errors..."
+    sleep 2
+fi
+printf "\n*******************************************************************\n"

@@ -3,13 +3,26 @@
 printf "\nInstalling Telegram...\n\n"
 sleep 1
 
-wget https://telegram.org/dl/desktop/linux
-sudo tar -xf linux -C /opt 
-sudo rm linux
+mkdir -p logs 
+printf "" > logs/logs_telegram.txt
 
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo snap install telegram-desktop\n%s" \
+"$(sudo snap install telegram-desktop)" \
+| tee -a logs/logs_telegram.txt
+
+
+telegram_check=$(whereis telegram-desktop)
 clear
-printf "==================="
-printf "\nTelegram installed!"
-printf "\n===================\n\n"
-printf "\nRun: \n/opt/Telegram/./Telegram\n"
-sleep 2
+
+if [[ "$telegram_check" == *"/snap/bin/telegram-desktop"* ]]; then
+    printf "\n\n************************ $(date +"%D %T") ************************" \
+    | tee -a logs/logs_telegram.txt
+    printf "\n→ snap info telegram-desktop | grep 'name\|installed\n" | tee -a logs/logs_telegram.txt 
+    printf "$(snap info telegram-desktop | grep 'name\|installed') \n" | tee -a logs/logs_telegram.txt 
+    printf "Telegram installed!"
+else
+    printf "Telegram not installed! Check logs for errors..."
+    sleep 2
+fi
+printf "\n*******************************************************************\n"

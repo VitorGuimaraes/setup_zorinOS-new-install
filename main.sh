@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# sudo chmod +x src/*.sh
-# sudo chmod +x brightness-and-temperature/*.sh
-
 # Define enum keys
 enum_keys=(
     all 
@@ -12,6 +9,7 @@ enum_keys=(
     docker 
     git
     vscode 
+    insomnia
     dbeaver 
     modern_terminal 
     dracula_theme 
@@ -43,13 +41,15 @@ function checks() {
     dockercompose_check=$(whereis compose)
     git_check=$(whereis git)
     vscode_check=$(whereis code)
+    insomnia_check=$(whereis insomnia)
     dbeaver_check=$(whereis dbeaver)  
     zsh_check=$(whereis zsh)
     hyper_check=$(whereis hyper)
-    firacode_check=$(fc-list | grep -V "Fira Code Nerd Font")
+    firacode_check=$(fc-list | grep "Fira Code Regular Nerd Font Complete.ttf")
+    exa_check=$(whereis exa)
     dracula_theme_check=$(xfconf-query -c xsettings -p /Net/ThemeName -v)
-    paper_theme_check=$(sudo apt list --installed | grep "paper-icon-theme")
-    telegram_check=$(ls /opt)
+    paper_theme_check=$(ls /usr/share/icons | grep Paper)
+    telegram_check=$(whereis telegram-desktop)
     vlc_check=$(whereis vlc)
     brightness_and_temperature_files_check=$(ls -a ~/)
     brightness_and_temperature_shortcut_check=$(xfconf-query -c xfce4-keyboard-shortcuts -p /commands/custom -lv)
@@ -92,6 +92,13 @@ function checks() {
         array[vscode]="** VS Code"
     fi
 
+    if [[ "$insomnia_check" == *"/snap/bin/insomnia"* ]]; then
+        array[vscode]="* Insomnia"
+    else
+        array[vscode]="** Insomnia"
+    fi
+    
+
     if [[ "$dbeaver_check" == *"/usr/bin/dbeaver"* ]]; then
         array[dbeaver]="* Dbeaver"
     else
@@ -99,8 +106,9 @@ function checks() {
     fi
 
     if [[ "$zsh_check" == *"/usr/bin/zsh"* &&
-        "$hyper_check" == *"/bin/hyper"* && 
-        "$firacode_check" == *"Mike Haertel"* 
+          "$hyper_check" == *"/bin/hyper"* && 
+          "$firacode_check" == *"Fira Code Regular Nerd Font"*  &&
+          "$exa_check" == *".cargo/bin/exa"*
         ]]; then
         array[modern_terminal]="* Modern terminal"
     else
@@ -113,27 +121,27 @@ function checks() {
         array[dracula_theme]="** Dracula Theme"
     fi
 
-    if [[ "$paper_theme_check" == *"paper-icon-theme"* ]]; then
+    if [[ "$paper_theme_check" == *"Paper"* ]]; then
         array[paper_theme]="* Paper Theme Dev Icons"
     else
         array[paper_theme]="** Paper Theme Dev Icons"
     fi
 
     if [[ "$brightness_and_temperature_files_check" == *"brightness-decrease.sh"* &&
-        "$brightness_and_temperature_files_check" == *"brightness-increase.sh"* &&
-        "$brightness_and_temperature_files_check" == *"color-temp-decrease.sh"* &&
-        "$brightness_and_temperature_files_check" == *"color-temp-increase.sh"* &&
-        "$brightness_and_temperature_shortcut_check" == *"brightness-decrease.sh"* &&
-        "$brightness_and_temperature_shortcut_check" == *"brightness-increase.sh"* &&
-        "$brightness_and_temperature_shortcut_check" == *"color-temp-decrease.sh"* &&
-        "$brightness_and_temperature_shortcut_check" == *"color-temp-increase.sh"* 
+          "$brightness_and_temperature_files_check" == *"brightness-increase.sh"* &&
+          "$brightness_and_temperature_files_check" == *"color-temp-decrease.sh"* &&
+          "$brightness_and_temperature_files_check" == *"color-temp-increase.sh"* &&
+          "$brightness_and_temperature_shortcut_check" == *"brightness-decrease.sh"* &&
+          "$brightness_and_temperature_shortcut_check" == *"brightness-increase.sh"* &&
+          "$brightness_and_temperature_shortcut_check" == *"color-temp-decrease.sh"* &&
+          "$brightness_and_temperature_shortcut_check" == *"color-temp-increase.sh"* 
         ]]; then
         array[brightness_and_temperature]="* Brightness and Temperature Control"
     else
         array[brightness_and_temperature]="** Brightness and Temperature Control"
     fi
 
-    if [[ "$telegram_check" == *"Telegram"* ]]; then
+    if [[ "$telegram_check" == *"/snap/bin/telegram-desktop"* ]]; then
         array[telegram]="* Telegram"
     else
         array[telegram]="** Telegram"
@@ -204,6 +212,11 @@ function loop() {
 
         ${array[vscode]}) 
             clear && bash src/vscode.sh
+            loop
+            ;;
+
+        ${array[insomnia]}) 
+            clear && bash src/insomnia.sh
             loop
             ;;
         

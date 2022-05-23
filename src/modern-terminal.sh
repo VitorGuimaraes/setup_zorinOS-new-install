@@ -3,51 +3,144 @@
 printf "\nInstalling Modern Terminal...\n\n"
 sleep 1
 
-# Install and set zsh terminal:
-sudo apt install zsh cargo -y && cargo install exa 
-printf "\n===================================================="
-printf "\nChanging shell to zsh. Please, insert your password:"
-printf "\n====================================================\n"
-sudo chsh -s /usr/bin/zsh 
-sleep 1
+mkdir -p logs 
+printf "" > logs/logs_modern_terminal.txt
 
-# Copy zsh and hyper js files
-printf "\n===================="
-printf "\nCoping config files\n"
-cp -v modern-terminal/.p10k.zsh \
-      modern-terminal/.hyper.js \
-      modern-terminal/.zshrc \
-      modern-terminal/.zsh-autosuggestions.zsh ~/ 
-sleep 1
+printf "************************ $(date +"%D %T") ************************ 
+→ sudo apt install zsh cargo -y\n%s" \
+"$(sudo apt install zsh cargo -y 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
 
-# Install hyper
-printf "\n=================="
-printf "\nInstalling Hyper"
-printf "\n==================\n"
-wget https://releases.hyper.is/download/deb
-sudo dpkg -i deb 
-sudo rm deb 
-sleep 1
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ cargo install exa \n\n%s" \
+"$(cargo install exa 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
 
-# Set hyper as default shell
-printf "\n==============================="
-printf "\nSetting Hyper as default shell"
-printf "\n===============================\n"
-sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/local/bin/hyper 50
-sed -i '/TerminalEmulator/d' ~/.config/xfce4/helpers.rc
-echo "TerminalEmulator=debian-x-terminal-emulator" >> ~/.config/xfce4/helpers.rc
-sleep 1
+printf "\n\n************************ $(date +"%D %T") ************************" \
+| tee -a logs/logs_modern_terminal.txt
+printf "\n→ sudo chsh -s /usr/bin/zsh" | tee -a logs/logs_modern_terminal.txt
+printf "\n====================================================" | tee -a logs/logs_modern_terminal.txt
+printf "\nChanging shell to zsh. Please, insert your password:" | tee -a logs/logs_modern_terminal.txt
+printf "\n====================================================" | tee -a logs/logs_modern_terminal.txt
+printf "$(sudo chsh -s /usr/bin/zsh)" | tee -a logs/logs_modern_terminal.txt
 
-# Install Fira Code nerd font
-printf "\n===================="
-printf "\nInstalling Fira Code"
-printf "\n====================\n"
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
-unzip -o FiraCode.zip -d $HOME/.local/share/fonts/
-sudo rm FiraCode.zip
-sleep 1
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ cp -v modern-terminal/.p10k.zsh ~/ 2>&1\n%s" \
+"$(cp -v modern-terminal/.p10k.zsh ~/ 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
 
-clear
-printf "============================"
-printf "\nModern Terminal installed!!!"
-printf "\n============================\n\n"
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ cp -v modern-terminal/.hyper.js ~/ 2>&1\n%s" \
+"$(cp -v modern-terminal/.hyper.js ~/ 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ cp -v modern-terminal/.zshrc ~/ 2>&1\n%s" \
+"$(cp -v modern-terminal/.zshrc ~/ 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ cp -v modern-terminal/.zsh-autosuggestions.zsh ~/ 2>&1\n%s" \
+"$(cp -v modern-terminal/.zsh-autosuggestions.zsh ~/ 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ wget https://releases.hyper.is/download/deb\n\n %s" \
+"$(wget https://releases.hyper.is/download/deb 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo dpkg -i deb \n\n%s" \
+"$(sudo dpkg -i deb )" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo rm -v deb 2>&1 \n%s" \
+"$(sudo rm -v deb 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo update-alternatives --install /usr/bin/x-terminal-emulator \
+x-terminal-emulator /usr/local/bin/hyper 50 %s" \
+"$(sudo update-alternatives --install /usr/bin/x-terminal-emulator \
+x-terminal-emulator /usr/local/bin/hyper 50)" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sed -i '/TerminalEmulator/d' ~/.config/xfce4/helpers.rc %s" \
+"$(sed -i '/TerminalEmulator/d' ~/.config/xfce4/helpers.rc)" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ echo "TerminalEmulator=debian-x-terminal-emulator" >> ~/.config/xfce4/helpers.rc \n\n%s" \
+"$(echo "TerminalEmulator=debian-x-terminal-emulator" >> ~/.config/xfce4/helpers.rc)" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "************************ $(date +"%D %T") ************************ 
+→ wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip\n\n %s" \
+"$(wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ unzip -o FiraCode.zip -d $HOME/.local/share/fonts/ 2>&1\n\n%s" \
+"$(unzip -o FiraCode.zip -d $HOME/.local/share/fonts/ 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ sudo rm -v FiraCode.zip 2>&1 \n%s" \
+"$(sudo rm -v FiraCode.zip 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+
+
+zsh_check=$(whereis zsh)
+hyper_check=$(whereis hyper)
+firacode_check=$(fc-list | grep "Fira Code Regular Nerd Font Complete.ttf")
+exa_check=$(whereis exa)
+clear 
+
+printf "\n\n************************ $(date +"%D %T") ************************" \
+    | tee -a logs/logs_modern_terminal.txt
+if [[ "$zsh_check" == *"/usr/bin/zsh"* ]]; then
+    printf "\nShell ZSH installed!" | tee -a logs/logs_modern_terminal.txt
+else 
+	"\nShell ZSH not installed! Check logs for errors..."
+fi
+
+printf "\n************************ $(date +"%D %T") ************************" \
+    | tee -a logs/logs_modern_terminal.txt
+if [[ "$hyper_check" == *"/bin/hyper"* ]]; then
+    printf "\nHyper JS installed!" | tee -a logs/logs_modern_terminal.txt
+else 
+	"\nHyper JS not installed! Check logs for errors..." | tee -a logs/logs_modern_terminal.txt
+fi
+
+printf "\n************************ $(date +"%D %T") ************************" \
+    | tee -a logs/logs_modern_terminal.txt
+if [[ "$firacode_check" == *"Fira Code Regular Nerd Font"* ]]; then 
+    printf "\nFira Code installed!" | tee -a logs/logs_modern_terminal.txt
+else 
+	"\nFira Code not installed! Check logs for errors..." | tee -a logs/logs_modern_terminal.txt
+fi
+
+printf "\n************************ $(date +"%D %T") ************************" \
+    | tee -a logs/logs_modern_terminal.txt
+if [[ "$exa_check" == *".cargo/bin/exa"* ]]; then 
+    printf "\nExa installed!" | tee -a logs/logs_modern_terminal.txt
+else 
+	"\nExa not installed! Check logs for errors..." | tee -a logs/logs_modern_terminal.txt
+fi
+
+
+if [[ "$zsh_check" == *"/usr/bin/zsh"* &&
+	  "$hyper_check" == *"/bin/hyper"* && 
+	  "$firacode_check" == *"Fira Code Regular Nerd Font"* &&
+	  "$exa_check" == *".cargo/bin/exa"*
+	]]; then
+	printf "\n************************ $(date +"%D %T") ************************" \
+	| tee -a logs/logs_modern_terminal.txt
+	printf "\nModern Terminal installed!"
+else
+	printf "\nModern Terminal not installed! Check logs for errors..."
+	sleep 2
+fi
+printf "\n*******************************************************************\n"
