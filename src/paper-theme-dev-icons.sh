@@ -7,13 +7,13 @@ mkdir -p logs
 printf "" > logs/logs_paper_theme.txt
 
 printf "************************ $(date +"%D %T") ************************ 
-→ sudo apt install paper-icon-theme -y\n\n%s" \
-"$(sudo apt install paper-icon-theme -y)" \
+→ sudo dpkg -i PaperThemeDevIcons/paper-icon-theme.deb\n\n%s" \
+"$(sudo dpkg -i PaperThemeDevIcons/paper-icon-theme.deb)" \
 | tee -a logs/logs_paper_theme.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
-→ sudo cp -v ../PaperThemeDevIcons/dockerfile.xml /usr/share/mime/packages\n\n%s" \
-"$(sudo cp -v ../PaperThemeDevIcons/dockerfile.xml /usr/share/mime/packages)" \
+→ sudo cp -v PaperThemeDevIcons/dockerfile.xml /usr/share/mime/packages\n\n%s" \
+"$(sudo cp -v PaperThemeDevIcons/dockerfile.xml /usr/share/mime/packages)" \
 | tee -a logs/logs_paper_theme.txt
 
 dest="/usr/share/icons/Paper/16x16/mimetypes    /usr/share/icons/Paper/24x24/mimetypes 
@@ -22,7 +22,7 @@ dest="/usr/share/icons/Paper/16x16/mimetypes    /usr/share/icons/Paper/24x24/mim
       /usr/share/icons/Paper/32x32@2x/mimetypes /usr/share/icons/Paper/48x48@2x/mimetypes
       /usr/share/icons/Paper/512x512/mimetypes  /usr/share/icons/Paper/512x512@2x/mimetypes"
 
-printf "************************ $(date +"%D %T") ************************ 
+printf "\n\n************************ $(date +"%D %T") ************************ 
 → echo $dest | xargs -n 1 sudo cp -v PaperThemeDevIcons/icons/text-x-script.png\n\n%s" \
 "$(echo $dest | xargs -n 1 sudo cp -v PaperThemeDevIcons/icons/text-x-script.png)" \
 | tee -a logs/logs_paper_theme.txt
@@ -38,11 +38,11 @@ printf "\n\n************************ $(date +"%D %T") ************************
 | tee -a logs/logs_paper_theme.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
-→ sudo cp -v ../PaperThemeDevIcons/icons/*.svg /usr/share/icons/hicolor/scalable/mimetypes\n\n%s" \
-"$(sudo cp -v ../PaperThemeDevIcons/icons/*.svg /usr/share/icons/hicolor/scalable/mimetypes)" \
+→ sudo cp -v PaperThemeDevIcons/icons/*.svg /usr/share/icons/hicolor/scalable/mimetypes\n\n%s" \
+"$(sudo cp -v PaperThemeDevIcons/icons/*.svg /usr/share/icons/hicolor/scalable/mimetypes)" \
 | tee -a logs/logs_paper_theme.txt
 
-printf "************************ $(date +"%D %T") ************************ 
+printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo gtk-update-icon-cache /usr/share/icons/hicolor/ -f\n\n%s" \
 "$(sudo gtk-update-icon-cache /usr/share/icons/hicolor/ -f)" \
 | tee -a logs/logs_paper_theme.txt
@@ -54,7 +54,7 @@ printf "************************ $(date +"%D %T") ************************
 
 
 paper_theme_check=$(ls /usr/share/icons | grep Paper)
-clear
+# clear
 
 if [[ "$paper_theme_check" == *"Paper"* ]]; then
     printf "************************ $(date +"%D %T") ************************" \
