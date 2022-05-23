@@ -27,17 +27,17 @@ printf "************************ $(date +"%D %T") ************************
 "$(echo $dest | xargs -n 1 sudo cp -v PaperThemeDevIcons/icons/text-x-script.png)" \
 | tee -a logs/logs_paper_theme.txt
 
-printf "************************ $(date +"%D %T") ************************ 
+printf "\n\n************************ $(date +"%D %T") ************************ 
 → echo $dest | xargs -n 1 sudo cp -v PaperThemeDevIcons/icons/text-html.png\n\n%s" \
 "$(echo $dest | xargs -n 1 sudo cp -v PaperThemeDevIcons/icons/text-html.png)" \
 | tee -a logs/logs_paper_theme.txt
 
-printf "************************ $(date +"%D %T") ************************ 
+printf "\n\n************************ $(date +"%D %T") ************************ 
 → echo $dest | xargs -n 1 sudo cp -v PaperThemeDevIcons/icons/text-x-matlab.png\n\n%s" \
 "$(echo $dest | xargs -n 1 sudo cp -v PaperThemeDevIcons/icons/text-x-matlab.png)" \
 | tee -a logs/logs_paper_theme.txt
 
-printf "************************ $(date +"%D %T") ************************ 
+printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo cp -v ../PaperThemeDevIcons/icons/*.svg /usr/share/icons/hicolor/scalable/mimetypes\n\n%s" \
 "$(sudo cp -v ../PaperThemeDevIcons/icons/*.svg /usr/share/icons/hicolor/scalable/mimetypes)" \
 | tee -a logs/logs_paper_theme.txt

@@ -51,8 +51,7 @@ dracula_theme_check=$(xfconf-query -c xsettings -p /Net/ThemeName -v)
 clear
 
 if [[ "$dracula_theme_check" == *"Dracula"* ]]; then
-    printf "************************ $(date +"%D %T") ************************" \
-    | tee -a logs/logs_dracula_theme.txt
+    printf "************************ $(date +"%D %T") ************************"
     printf "\nDracula Theme installed!"
 else
     printf "Dracula Theme not installed! Check logs for errors..."

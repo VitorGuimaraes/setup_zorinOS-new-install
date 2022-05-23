@@ -11,7 +11,7 @@ printf "************************ $(date +"%D %T") ************************
 "$(sudo apt install ca-certificates curl gnupg lsb-release -y)" \
 | tee -a logs/logs_docker.txt
 
-printf "************************ $(date +"%D %T") ************************ 
+printf "\n\n************************ $(date +"%D %T") ************************ 
 → curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
 | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg\n\n%s" \
 "$(curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
@@ -27,7 +27,7 @@ printf "%s\n" "deb [arch=$(dpkg --print-architecture)] \
 https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
 | sudo tee /etc/apt/sources.list.d/docker.list
 
-printf "************************ $(date +"%D %T") ************************ 
+printf "\n************************ $(date +"%D %T") ************************ 
 → sudo apt update -y 2>&1\n%s" \
 "$(sudo apt update -y 2>&1)" \
 | tee -a logs/logs_docker.txt

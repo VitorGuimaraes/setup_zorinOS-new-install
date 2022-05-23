@@ -136,8 +136,7 @@ if [[ "$zsh_check" == *"/usr/bin/zsh"* &&
 	  "$firacode_check" == *"Fira Code Regular Nerd Font"* &&
 	  "$exa_check" == *".cargo/bin/exa"*
 	]]; then
-	printf "\n************************ $(date +"%D %T") ************************" \
-	| tee -a logs/logs_modern_terminal.txt
+	printf "\n************************ $(date +"%D %T") ************************" 
 	printf "\nModern Terminal installed!"
 else
 	printf "\nModern Terminal not installed! Check logs for errors..."

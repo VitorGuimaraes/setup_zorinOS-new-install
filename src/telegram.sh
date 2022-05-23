@@ -6,7 +6,7 @@ sleep 1
 mkdir -p logs 
 printf "" > logs/logs_telegram.txt
 
-printf "\n\n************************ $(date +"%D %T") ************************ 
+printf "************************ $(date +"%D %T") ************************ 
 → sudo snap install telegram-desktop\n%s" \
 "$(sudo snap install telegram-desktop)" \
 | tee -a logs/logs_telegram.txt
@@ -16,7 +16,7 @@ telegram_check=$(whereis telegram-desktop)
 clear
 
 if [[ "$telegram_check" == *"/snap/bin/telegram-desktop"* ]]; then
-    printf "\n\n************************ $(date +"%D %T") ************************" \
+    printf "\n************************ $(date +"%D %T") ************************" \
     | tee -a logs/logs_telegram.txt
     printf "\n→ snap info telegram-desktop | grep 'name\|installed\n" | tee -a logs/logs_telegram.txt 
     printf "$(snap info telegram-desktop | grep 'name\|installed') \n" | tee -a logs/logs_telegram.txt 
