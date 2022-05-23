@@ -19,13 +19,15 @@ printf "\n\n************************ $(date +"%D %T") ************************
 | tee -a logs/logs_docker.txt
 
 printf "************************ $(date +"%D %T") ************************ 
-→ deb [arch=$(dpkg --print-architecture)] \
-https://download.docker.com/linux/debian $(lsb_release -cs) stable\
-| sudo tee /etc/apt/sources.list.d/docker.list \n" \
+→ deb [arch=$(dpkg --print-architecture) \
+signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
+https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\
+| sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \n" \
 | tee -a logs/logs_docker.txt
-printf "%s\n" "deb [arch=$(dpkg --print-architecture)] \
-https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
-| sudo tee /etc/apt/sources.list.d/docker.list
+printf "%s\n" "deb [arch=$(dpkg --print-architecture) \
+signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
+https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+| sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 printf "\n************************ $(date +"%D %T") ************************ 
 → sudo apt update -y 2>&1\n%s" \
@@ -54,7 +56,7 @@ if [[ "$docker_check" == *"/etc/docker"* ]]; then
   printf "$(docker --version) \n" | tee -a logs/logs_docker.txt 
   printf "Docker installed!"
 else 
-  printf "Docker not installed! Check for errors...\n"
+  printf "Docker not installed! Check logs for errors...\n"
 fi 
 
 if [[ "$dockercompose_check" == *"/usr/bin/compose"* ]]; then
@@ -64,7 +66,7 @@ if [[ "$dockercompose_check" == *"/usr/bin/compose"* ]]; then
   printf "$(docker compose version)\n" | tee -a logs/logs_docker.txt 
   printf "Docker Compose installed!"
 else 
-  printf "Docker Compose not installed! Check for errors...\n"
+  printf "Docker Compose not installed! Check logs for errors...\n"
   sleep 2
 fi 
 printf "\n*******************************************************************\n"
