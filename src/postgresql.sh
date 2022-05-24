@@ -7,10 +7,10 @@ mkdir -p logs
 printf "" > logs/logs_postgresql.txt
 
 printf "************************ $(date +"%D %T") ************************ 
-→ echo 'deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main'
+→ echo 'deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main'
 | sudo tee /etc/apt/sources.list.d/pgdg.list %s" \
 | tee -a logs/logs_postgresql.txt
-printf "%s\n" "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" \
+printf "%s\n" "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" \
 | sudo tee /etc/apt/sources.list.d/pgdg.list
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
