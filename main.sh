@@ -17,6 +17,7 @@ enum_keys=(
     brightness_and_temperature
     telegram 
     vlc 
+    system_program_problem_detected
     quit
 )
 
@@ -54,7 +55,7 @@ function checks() {
     vlc_check=$(whereis vlc)
     brightness_and_temperature_files_check=$(ls -a ~/)
     brightness_and_temperature_shortcut_check=$(xfconf-query -c xfce4-keyboard-shortcuts -p /commands/custom -lv)
-
+    system_program_problem_detected_check=$(cat /etc/default/apport | grep "enabled")  
 
     if [[ "$elixir_check" == *"/usr/bin/elixir"* ]]; then
         array[elixir]="* Elixir"
@@ -111,7 +112,6 @@ function checks() {
           "$firacode_check" == *"Fira Code Regular Nerd Font"*  &&
           "$exa_check" == *".cargo/bin/exa"* && 
           "$power_level10k_check" == *".powerlevel10k"*
-          
         ]]; then
         array[modern_terminal]="* Modern terminal"
     else
@@ -154,6 +154,12 @@ function checks() {
         array[vlc]="* VLC"
     else
         array[vlc]="** VLC"
+    fi
+
+    if [[ "$system_program_problem_detected_check" == *"enabled=0"* ]]; then
+        array[system_program_problem_detected]="* Fix for 'System Program Problem Detected'"
+    else
+        array[system_program_problem_detected]="** Fix for 'System Program Problem Detected'"
     fi
 }
 
@@ -257,6 +263,11 @@ function loop() {
 
         ${array[vlc]}) 
             clear && bash src/vlc.sh
+            loop
+            ;;
+
+        ${array[system_program_problem_detected]}) 
+            clear && bash src/system-program-problem.sh
             loop
             ;;
 
