@@ -49,12 +49,6 @@ source ~/.zsh-autosuggestions.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-printf "0\n" \
-| sudo tee /sys/module/snd_hda_intel/parameters/power_save_controller
-
-printf "0\n" \
-| sudo tee /sys/module/snd_hda_intel/parameters/power_save
-
 # Docker:
 # sudo usermod -aG docker $USER
 # newgrp docker
