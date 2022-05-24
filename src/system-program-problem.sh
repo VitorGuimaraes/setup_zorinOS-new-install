@@ -11,11 +11,10 @@ printf "************************ $(date +"%D %T") ************************
 "$(sudo sed -i 's/enabled=.*/enabled=0/' /etc/default/apport &)" \
 | tee -a logs/logs_system_program_problem_detected.txt
 
-system_program_problem_detected=$(cat /etc/default/apport | grep "enabled")
+system_program_problem_detected_check=$(cat /etc/default/apport | grep "enabled")
 clear
 
-if [[ "$system_program_problem_detected" == *"enabled=0"* ]]; then
-
+if [[ "$system_program_problem_detected_check" == *"enabled=0"* ]]; then
     printf "************************ $(date +"%D %T") ************************\n" \
     | tee -a logs/logs_system_program_problem_detected.txt
     printf "$(cat /etc/default/apport)" \
