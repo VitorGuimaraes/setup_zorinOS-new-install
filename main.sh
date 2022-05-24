@@ -18,6 +18,7 @@ enum_keys=(
     telegram 
     vlc 
     system_program_problem_detected
+    static_noise_power_save
     quit
 )
 
@@ -56,6 +57,7 @@ function checks() {
     brightness_and_temperature_files_check=$(ls -a ~/)
     brightness_and_temperature_shortcut_check=$(xfconf-query -c xfce4-keyboard-shortcuts -p /commands/custom -lv)
     system_program_problem_detected_check=$(cat /etc/default/apport | grep "enabled")  
+    static_noise_power_save_check=$(sudo cat /etc/modprobe.d/audio_disable_powersave.conf)
 
     if [[ "$elixir_check" == *"/usr/bin/elixir"* ]]; then
         array[elixir]="* Elixir"
@@ -161,6 +163,12 @@ function checks() {
     else
         array[system_program_problem_detected]="** Fix for 'System Program Problem Detected'"
     fi
+
+    if [[ "$static_noise_power_save_check" == *"power_save=0"* ]]; then
+    array[static_noise_power_save]="* Fix for Static noise caused by Card's Power Save"
+    else
+        array[static_noise_power_save]="** Fix for Static noise caused by Card's Power Save"
+    fi
 }
 
 array[quit]="Quit"
@@ -178,7 +186,6 @@ function loop() {
         ${array[all]})
             clear
             echo "Installing All..."
-            sleep 1
             bash src/elixir.sh 
             bash src/phoenix.sh
             bash src/postgresql.sh
@@ -193,6 +200,8 @@ function loop() {
             bash src/brightness-and-temperature.sh
             bash src/telegram.sh
             bash src/vlc.sh
+            bash src/system-program-problem-detected.sh 
+            bash src/static-noise-power-save.sh 
             loop
             ;;
 
@@ -270,6 +279,11 @@ function loop() {
             clear && bash src/system-program-problem.sh
             loop
             ;;
+
+        ${array[static_noise_power_save]}) 
+            clear && bash src/static-noise-power-save.sh 
+            loop
+            ;; 
 
         ${array[quit]})
             echo "Exiting..." && sleep 0.5
