@@ -200,7 +200,7 @@ function loop() {
             bash src/brightness-and-temperature.sh
             bash src/telegram.sh
             bash src/vlc.sh
-            bash src/system-program-problem-detected.sh 
+            bash src/system-program-problem.sh 
             bash src/static-noise-power-save.sh 
             loop
             ;;
