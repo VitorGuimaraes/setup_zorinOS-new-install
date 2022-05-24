@@ -20,6 +20,7 @@ enum_keys=(
     chrome
     system_program_problem_detected
     static_noise_power_save
+    uninstaller
     quit
 )
 
@@ -178,7 +179,7 @@ function checks() {
         array[static_noise_power_save]="** Fix for Static noise caused by Card's Power Save"
     fi
 }
-
+array[uninstaller]="Remove trash packages"
 array[quit]="Quit"
 
 favorites="favorites=exo-web-browser.desktop,exo-file-manager.desktop"
@@ -244,6 +245,7 @@ function loop() {
             bash src/chrome.sh
             bash src/system-program-problem.sh 
             bash src/static-noise-power-save.sh 
+            bash src/uninstaller.sh
             loop
             ;;
 
@@ -329,6 +331,11 @@ function loop() {
 
         ${array[static_noise_power_save]}) 
             clear && bash src/static-noise-power-save.sh 
+            loop
+            ;; 
+
+        ${array[uninstaller]}) 
+            clear && bash src/uninstaller.sh 
             loop
             ;; 
 
