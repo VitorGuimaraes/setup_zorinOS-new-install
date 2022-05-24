@@ -181,8 +181,41 @@ function checks() {
 
 array[quit]="Quit"
 
+favorites="favorites=exo-web-browser.desktop,exo-file-manager.desktop"
+current_favorites=$(cat ~/.config/xfce4/panel/whiskermenu-1.rc | grep 'favorites=')
+function add_favorites() {
+    if [[ $vscode_check == *"/usr/bin/code"* &&
+          $current_favorites != "code.desktop" ]]; then 
+        favorites="${favorites},code.desktop"
+    fi 
+
+    if [[ $insomnia_check == *"/snap/bin/insomnia"* &&
+          $current_favorites != "insomnia_insomnia.desktop" ]]; then 
+        favorites="${favorites},insomnia_insomnia.desktop"
+    fi 
+
+    if [[ $dbeaver_check == *"/usr/bin/dbeaver"* &&
+          $current_favorites != "dbeaver-ce.desktop" ]]; then 
+        favorites="${favorites},dbeaver-ce.desktop" 
+    fi 
+
+    if [[ $chrome_check == *"Chrome"* &&
+          $current_favorites != "google-chrome.desktop" ]]; then 
+        favorites="${favorites},google-chrome.desktop"
+    fi 
+
+    if [[ $telegram_check == *"/snap/bin/telegram-desktop"* &&
+          $current_favorites != "telegram-desktop.desktop" ]]; then 
+        favorites="${favorites},telegram-desktop_telegram-desktop.desktop"
+    fi 
+
+    sed -i "s/favorites=.*/${favorites}/" ~/.config/xfce4/panel/whiskermenu-1.rc
+}
+
+
 function loop() {
     checks
+    add_favorites
     printf "\nEnter the number of the option to install:\n"
     printf "(*) - installed\n"
     printf "(**) - not installed\n\n"
