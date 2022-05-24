@@ -17,6 +17,7 @@ enum_keys=(
     brightness_and_temperature
     telegram 
     vlc 
+    chrome
     system_program_problem_detected
     static_noise_power_save
     quit
@@ -54,6 +55,7 @@ function checks() {
     paper_theme_check=$(ls /usr/share/icons | grep Paper)
     telegram_check=$(whereis telegram-desktop)
     vlc_check=$(whereis vlc)
+    chrome_check=$(google-chrome --version) 
     brightness_and_temperature_files_check=$(ls -a ~/)
     brightness_and_temperature_shortcut_check=$(xfconf-query -c xfce4-keyboard-shortcuts -p /commands/custom -lv)
     system_program_problem_detected_check=$(cat /etc/default/apport | grep "enabled")  
@@ -158,6 +160,12 @@ function checks() {
         array[vlc]="** VLC"
     fi
 
+    if [[ "$chrome_check" == *"Chrome"* ]]; then
+        array[chrome]="* Google Chrome"
+    else
+        array[chrome]="** Google Chrome"
+    fi
+
     if [[ "$system_program_problem_detected_check" == *"enabled=0"* ]]; then
         array[system_program_problem_detected]="* Fix for 'System Program Problem Detected'"
     else
@@ -200,6 +208,7 @@ function loop() {
             bash src/brightness-and-temperature.sh
             bash src/telegram.sh
             bash src/vlc.sh
+            bash src/chrome.sh
             bash src/system-program-problem.sh 
             bash src/static-noise-power-save.sh 
             loop
@@ -275,6 +284,11 @@ function loop() {
             loop
             ;;
 
+        ${array[chrome]}) 
+            clear && bash src/chrome.sh
+            loop
+            ;;
+        
         ${array[system_program_problem_detected]}) 
             clear && bash src/system-program-problem.sh
             loop
