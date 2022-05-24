@@ -22,8 +22,8 @@ printf "\n\n************************ $(date +"%D %T") ************************
 | tee -a logs/logs_brightness_and_temperature.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
-→ cp -v brightness-and-temperature/color-temp-decrease.sh ~/.color-temp-increase.sh 2>&1\n%s" \
-"$(cp -v brightness-and-temperature/color-temp-decrease.sh ~/.color-temp-increase.sh 2>&1)" \
+→ cp -v brightness-and-temperature/color-temp-increase.sh ~/.color-temp-increase.sh 2>&1\n%s" \
+"$(cp -v brightness-and-temperature/color-temp-increase.sh ~/.color-temp-increase.sh 2>&1)" \
 | tee -a logs/logs_brightness_and_temperature.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
