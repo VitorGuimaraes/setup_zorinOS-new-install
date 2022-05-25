@@ -54,7 +54,7 @@ printf "************************ $(date +"%D %T") ************************
 
 
 paper_theme_check=$(ls /usr/share/icons | grep Paper)
-# clear
+clear
 
 if [[ "$paper_theme_check" == *"Paper"* ]]; then
     printf "************************ $(date +"%D %T") ************************" \
