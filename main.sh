@@ -220,6 +220,7 @@ function loop() {
     printf "\nEnter the number of the option to install:\n"
     printf "(*) - installed\n"
     printf "(**) - not installed\n\n"
+    printf "After install, restart to apply all changes\n"
     
     select opt in "${array[@]}"
     do
