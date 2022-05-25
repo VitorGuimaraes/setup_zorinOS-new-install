@@ -60,7 +60,7 @@ function checks() {
     brightness_and_temperature_files_check=$(ls -a ~/)
     brightness_and_temperature_shortcut_check=$(xfconf-query -c xfce4-keyboard-shortcuts -p /commands/custom -lv)
     system_program_problem_detected_check=$(cat /etc/default/apport | grep "enabled")  
-    static_noise_power_save_check=$(sudo cat /etc/modprobe.d/audio_disable_powersave.conf)
+    static_noise_power_save_check=$(ls /etc/modprobe.d)
 
     if [[ "$elixir_check" == *"/usr/bin/elixir"* ]]; then
         array[elixir]="* Elixir"
@@ -173,8 +173,8 @@ function checks() {
         array[system_program_problem_detected]="** Fix for 'System Program Problem Detected'"
     fi
 
-    if [[ "$static_noise_power_save_check" == *"power_save=0"* ]]; then
-    array[static_noise_power_save]="* Fix for Static noise caused by Card's Power Save"
+    if [[ "$static_noise_power_save_check" == *"audio_disable_powersave.conf"* ]]; then
+        array[static_noise_power_save]="* Fix for Static noise caused by Card's Power Save"
     else
         array[static_noise_power_save]="** Fix for Static noise caused by Card's Power Save"
     fi
