@@ -132,7 +132,7 @@ printf "\n************************ $(date +"%D %T") ************************" \
 if [[ "$exa_check" == *".cargo/bin/exa"* ]]; then 
     printf "\nExa installed!" | tee -a logs/logs_modern_terminal.txt
 else 
-	"\nExa not installed! Check logs for errors..." | tee -a logs/logs_modern_terminal.txt
+	printf "\nExa not installed! Check logs for errors..." | tee -a logs/logs_modern_terminal.txt
 fi
 
 printf "\n************************ $(date +"%D %T") ************************" \
@@ -140,7 +140,7 @@ printf "\n************************ $(date +"%D %T") ************************" \
 if [[ "$power_level10k_check" == *".powerlevel10k"* ]]; then 
     printf "\nPowerlevel10k installed!" | tee -a logs/logs_modern_terminal.txt
 else 
-	"\nPowerlevel10k not installed! Check logs for errors..." | tee -a logs/logs_modern_terminal.txt
+	printf "\nPowerlevel10k not installed! Check logs for errors..." | tee -a logs/logs_modern_terminal.txt
 fi
 
 
