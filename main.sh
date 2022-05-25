@@ -56,7 +56,7 @@ function checks() {
     paper_theme_check=$(ls /usr/share/icons | grep Paper)
     telegram_check=$(whereis telegram-desktop)
     vlc_check=$(whereis vlc)
-    chrome_check=$(google-chrome --version) 
+    chrome_check=$(whereis google-chrome) 
     brightness_and_temperature_files_check=$(ls -a ~/)
     brightness_and_temperature_shortcut_check=$(xfconf-query -c xfce4-keyboard-shortcuts -p /commands/custom -lv)
     system_program_problem_detected_check=$(cat /etc/default/apport | grep "enabled")  
@@ -161,7 +161,7 @@ function checks() {
         array[vlc]="** VLC"
     fi
 
-    if [[ "$chrome_check" == *"Chrome"* ]]; then
+    if [[ "$chrome_check" == *"usr/bin/google-chrome"* ]]; then
         array[chrome]="* Google Chrome"
     else
         array[chrome]="** Google Chrome"
@@ -200,7 +200,7 @@ function add_favorites() {
         favorites="${favorites},dbeaver-ce.desktop" 
     fi 
 
-    if [[ $chrome_check == *"Chrome"* &&
+    if [[ $chrome_check == *"usr/bin/google-chrome"* &&
           $current_favorites != "google-chrome.desktop" ]]; then 
         favorites="${favorites},google-chrome.desktop"
     fi 

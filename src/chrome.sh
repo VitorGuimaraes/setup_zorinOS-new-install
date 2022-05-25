@@ -21,10 +21,10 @@ printf "\n\n************************ $(date +"%D %T") ************************
 "$(sudo rm -v google-chrome-stable_current_amd64.deb)" \
 | tee -a logs/logs_elixir.txt
 
-chrome_check=$(google-chrome --version) 
+chrome_check=$(whereis google-chrome) 
 clear 
 
-if [[ "$chrome_check" == *"Chrome"* ]]; then
+if [[ "$chrome_check" == *"usr/bin/google-chrome"* ]]; then
     printf "\n\n************************ $(date +"%D %T") ************************" \
     | tee -a logs/logs_chrome.txt
     printf "\n→ google-chrome --version\n" | tee -a logs/logs_chrome.txt 
