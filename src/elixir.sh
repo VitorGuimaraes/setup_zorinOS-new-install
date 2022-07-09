@@ -4,6 +4,7 @@
 
 # erlang-solutions: https://www.erlang-solutions.com/downloads/
 # sudo apt-get install esl-erlang=1:25.0-1
+# https://elixirforum.com/t/installing-erlang-elixir-on-ubuntu-20-04-is-failing-esl-erlang-25-0-2-1-ubuntu-focal-amd64-deb-file-has-unexpected-size/48754
 
 # sudo apt update -y
 # esl-erlang: http://binaries.erlang-solutions.com/debian/pool/
