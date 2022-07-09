@@ -4,7 +4,7 @@
 # erlang-solutions: https://www.erlang-solutions.com/downloads/
 # sudo apt update -y
 # esl-erlang: http://binaries.erlang-solutions.com/debian/pool/
-# elixir: sudo apt install elixir
+# elixir: sudo apt install elixir 
 
 printf "\nInstalling Elixir...\n\n"
 sleep 1
