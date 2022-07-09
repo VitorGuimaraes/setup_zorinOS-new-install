@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # In case of errors, try install manually:
+
 # erlang-solutions: https://www.erlang-solutions.com/downloads/
+# sudo apt-get install esl-erlang=1:25.0-1
+
 # sudo apt update -y
 # esl-erlang: http://binaries.erlang-solutions.com/debian/pool/
 # elixir: sudo apt install elixir 
