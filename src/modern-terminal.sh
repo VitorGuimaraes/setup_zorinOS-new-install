@@ -169,11 +169,11 @@ if [[ "$zsh_check" == *"/usr/bin/zsh"* &&
 	  "$power_level10k_check" == *".powerlevel10k"* &&
 	  "$fzf_check" == *".fzf"* 
 	]]; then
-	printf "\n************************ $(date +"%D %T") ***********************" 
+	printf "\n************************ $(date +"%D %T") ************************" 
 	printf "\nModern Terminal installed!"
 else
 	printf "\nModern Terminal not installed yet!" 
 	printf "\nLogoff and login to apply changes or check logs for errors"
 	sleep 2
 fi
-printf "\n******************************************************************\n"
+printf "\n*******************************************************************\n"
