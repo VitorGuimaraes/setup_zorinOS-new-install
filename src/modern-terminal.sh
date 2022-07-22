@@ -82,8 +82,8 @@ printf "************************ $(date +"%D %T") ************************
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
-→ unzip -o FiraCode.zip -d $HOME/.local/share/fonts/ 2>&1\n\n%s" \
-"$(unzip -o FiraCode.zip -d $HOME/.local/share/fonts/ 2>&1)" \
+→ unzip -o FiraCode.zip -d ~/.local/share/fonts/ 2>&1\n\n%s" \
+"$(unzip -o FiraCode.zip -d ~/.local/share/fonts/ 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
@@ -96,11 +96,22 @@ printf "\n\n************************ $(date +"%D %T") ************************
 "$(git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k)" \
 | tee -a logs/logs_modern_terminal.txt
 
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf 2>&1 \n%s" \
+"$(git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf 2>&1)" \
+| tee -a logs/logs_fzf.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
+→ ~/.fzf/install 2>&1 \n%s" \
+"$(echo 'y' | ~/.fzf/install 2>&1)" \
+| tee -a logs/logs_fzf.txt
+
 zsh_check=$(whereis zsh)
 hyper_check=$(whereis hyper)
 firacode_check=$(fc-list | grep "Fira Code Regular Nerd Font Complete.ttf")
 exa_check=$(whereis exa)
 power_level10k_check=$(ls -a ~/)
+fzf_check=$(ls -a ~/)
 clear 
 
 printf "\n\n************************ $(date +"%D %T") ************************" \
@@ -143,18 +154,26 @@ else
 	printf "\nPowerlevel10k not installed! Check logs for errors..." | tee -a logs/logs_modern_terminal.txt
 fi
 
+printf "\n************************ $(date +"%D %T") ************************" \
+    | tee -a logs/fzf_check.txt
+if [[ "$fzf_check" == *".fzf"* ]]; then 
+    printf "\nfzf installed!" | tee -a logs/logs_modern_terminal.txt
+else 
+	printf "\nfzf not installed! Check logs for errors..." | tee -a logs/logs_modern_terminal.txt
+fi
 
 if [[ "$zsh_check" == *"/usr/bin/zsh"* &&
 	  "$hyper_check" == *"/bin/hyper"* && 
 	  "$firacode_check" == *"Fira Code Regular Nerd Font"* &&
 	  "$exa_check" == *".cargo/bin/exa"* &&
-	  "$power_level10k_check" == *".powerlevel10k"* 
+	  "$power_level10k_check" == *".powerlevel10k"* &&
+	  "$fzf_check" == *".fzf"* 
 	]]; then
-	printf "\n************************ $(date +"%D %T") ************************" 
+	printf "\n************************ $(date +"%D %T") ***********************" 
 	printf "\nModern Terminal installed!"
 else
 	printf "\nModern Terminal not installed yet!" 
 	printf "\nLogoff and login to apply changes or check logs for errors"
 	sleep 2
 fi
-printf "\n*******************************************************************\n"
+printf "\n******************************************************************\n"
