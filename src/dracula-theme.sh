@@ -42,12 +42,16 @@ printf "\n************************ $(date +"%D %T") ************************
 | tee -a logs/logs_dracula_theme.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************
-→ xfconf-query -c xsettings -p /Net/ThemeName -s "Dracula"%s" \
-"$(xfconf-query -c xsettings -p /Net/ThemeName -s "Dracula")" \
+→ gsettings set org.gnome.shell.extensions.user-theme name 'Dracula'%s" \
+"$(gsettings set org.gnome.shell.extensions.user-theme name 'Dracula')" \
 | tee -a logs/logs_dracula_theme.txt
 
+printf "\n\n************************ $(date +"%D %T") ************************
+→ gsettings set org.gnome.desktop.interface gtk-theme 'Dracula'%s" \
+"$(gsettings set org.gnome.desktop.interface gtk-theme 'Dracula')" \
+| tee -a logs/logs_dracula_theme.txt
 
-dracula_theme_check=$(xfconf-query -c xsettings -p /Net/ThemeName -v)
+dracula_theme_check=$(gsettings get org.gnome.desktop.interface gtk-theme)
 clear
 
 if [[ "$dracula_theme_check" == *"Dracula"* ]]; then
