@@ -52,7 +52,7 @@ function checks() {
     firacode_check=$(fc-list | grep "Fira Code Regular Nerd Font Complete.ttf")
     exa_check=$(whereis exa)
     power_level10k_check=$(ls -a ~/)
-    dracula_theme_check=$(xfconf-query -c xsettings -p /Net/ThemeName -v)
+    dracula_theme_check=$(gsettings get org.gnome.desktop.interface gtk-theme)
     paper_theme_check=$(ls /usr/share/icons | grep Paper)
     telegram_check=$(whereis telegram-desktop)
     vlc_check=$(whereis vlc)
