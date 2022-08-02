@@ -13,7 +13,7 @@ enum_keys=(
     dbeaver 
     modern_terminal 
     dracula_theme 
-    paper_theme 
+    dev_icons 
     brightness_and_temperature
     telegram 
     vlc 
@@ -53,7 +53,6 @@ function checks() {
     exa_check=$(whereis exa)
     power_level10k_check=$(ls -a ~/)
     dracula_theme_check=$(gsettings get org.gnome.desktop.interface gtk-theme)
-    paper_theme_check=$(ls /usr/share/icons | grep Paper)
     telegram_check=$(whereis telegram-desktop)
     vlc_check=$(whereis vlc)
     chrome_check=$(whereis google-chrome) 
@@ -134,11 +133,8 @@ function checks() {
         array[dracula_theme]="** Dracula Theme"
     fi
 
-    if [[ "$paper_theme_check" == *"Paper"* ]]; then
-        array[paper_theme]="* Paper Theme Dev Icons"
-    else
-        array[paper_theme]="** Paper Theme Dev Icons"
-    fi
+    array[dev_icons]="* Dev Icons"
+
 
     if [[ "$brightness_and_temperature_files_check" == *"brightness-decrease.sh"* &&
           "$brightness_and_temperature_files_check" == *"brightness-increase.sh"* &&
@@ -246,7 +242,7 @@ function loop() {
             bash src/dbeaver.sh
             bash src/modern-terminal.sh
             bash src/dracula-theme.sh
-            bash src/paper-theme-dev-icons.sh
+            bash src/dev-icons.sh
             bash src/brightness-and-temperature.sh
             bash src/telegram.sh
             bash src/vlc.sh
@@ -307,8 +303,8 @@ function loop() {
             loop
             ;;
 
-        ${array[paper_theme]})
-            clear && bash src/paper-theme-dev-icons.sh
+        ${array[dev_icons]})
+            clear && bash src/dev-icons.sh
             loop
             ;;
 
