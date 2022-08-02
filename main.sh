@@ -63,6 +63,7 @@ function checks() {
         brightness_and_temperature_shortcut_check=$(xfconf-query -c xfce4-keyboard-shortcuts -p /commands/custom -lv)
     fi
 
+    sudo touch /etc/default/apport
     system_program_problem_detected_check=$(cat /etc/default/apport | grep "enabled")  
     static_noise_power_save_check=$(ls /etc/modprobe.d)
 
