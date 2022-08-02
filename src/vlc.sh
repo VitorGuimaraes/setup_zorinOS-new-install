@@ -8,7 +8,8 @@ printf "" > logs/logs_vlc.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → sudo snap install vlc \n\n%s" \
-"$(sudo snap install vlc)" \
+| tee -a logs/logs_vlc.txt
+printf "$(sudo snap install vlc)" \
 | tee -a logs/logs_vlc.txt
 
 

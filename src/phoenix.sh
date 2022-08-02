@@ -7,17 +7,20 @@ printf "" > logs/logs_phoenix.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → mix local.hex --force \n%s" \
-"$(mix local.hex --force )" \
+| tee -a logs/logs_phoenix.txt
+printf "$(mix local.hex --force )" \
 | tee -a logs/logs_phoenix.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → mix archive.install hex phx_new --force \n\n%s" \
-"$(mix archive.install hex phx_new --force)" \
+| tee -a logs/logs_phoenix.txt
+printf "$(mix archive.install hex phx_new --force)" \
 | tee -a logs/logs_phoenix.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
-→ sudo apt install inotify-tools -y\n\n%s"
-"$(sudo apt install inotify-tools -y)" \
+→ sudo apt install inotify-tools -y\n\n%s" \
+| tee -a logs/logs_phoenix.txt
+printf "$(sudo apt install inotify-tools -y)" \
 | tee -a logs/logs_phoenix.txt
 
 

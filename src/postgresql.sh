@@ -15,18 +15,21 @@ printf "%s\n" "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt $(lsb_re
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → wget -q -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - \n\n %s" \
-"$(wget -q -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -  2>&1)" \
+| tee -a logs/logs_postgresql.txt
+printf "$(wget -q -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -  2>&1)" \
 | tee -a logs/logs_postgresql.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo apt update -y\n\n%s" \
-"$(sudo apt update -y)" \
+| tee -a logs/logs_postgresql.txt
+printf "$(sudo apt update -y)" \
 | tee -a logs/logs_postgresql.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo apt install postgresql-12 postgresql-client-12 postgresql-12 libpq-dev \
 postgresql-server-dev-12 postgresql-contrib -y\n\n%s" \
-"$(sudo apt install postgresql-12 postgresql-client-12 postgresql-12 libpq-dev \
+| tee -a logs/logs_postgresql.txt
+printf "$(sudo apt install postgresql-12 postgresql-client-12 postgresql-12 libpq-dev \
 postgresql-server-dev-12 postgresql-contrib -y)" \
 | tee -a logs/logs_postgresql.txt
 

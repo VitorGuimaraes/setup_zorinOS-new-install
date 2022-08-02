@@ -8,27 +8,32 @@ printf "" > logs/logs_vscode.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → sudo apt update -y \n\n%s" \
-"$(sudo apt update -y)" \
+| tee -a logs/logs_vscode.txt
+printf "$(sudo apt update -y)" \
 | tee -a logs/logs_vscode.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo apt install software-properties-common apt-transport-https wget -y\n\n%s" \
-"$(sudo apt install software-properties-common apt-transport-https wget -y)" \
+| tee -a logs/logs_vscode.txt
+printf "$(sudo apt install software-properties-common apt-transport-https wget -y)" \
 | tee -a logs/logs_vscode.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - \n\n%s" \
-"$(wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - 2>&1)" \
+| tee -a logs/logs_vscode.txt
+printf "$(wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - 2>&1)" \
 | tee -a logs/logs_vscode.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo add-apt-repository 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main' \n\n%s" \
-"$(sudo add-apt-repository 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main' 2>&1)" \
+| tee -a logs/logs_vscode.txt
+printf "$(sudo add-apt-repository 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main' 2>&1)" \
 | tee -a logs/logs_vscode.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo apt install code -y\n\n%s" \
-"$(sudo apt install code -y)" \
+| tee -a logs/logs_vscode.txt
+printf "$(sudo apt install code -y)" \
 | tee -a logs/logs_vscode.txt
 
 

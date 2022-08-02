@@ -8,9 +8,9 @@ printf "" > logs/logs_insomnia.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → sudo snap install insomnia \n\n%s" \
-"$(sudo snap install insomnia)" \
 | tee -a logs/logs_insomnia.txt
-
+printf "$(sudo snap install insomnia)" \
+| tee -a logs/logs_insomnia.txt
 
 insomnia_check=$(whereis insomnia)
 clear
