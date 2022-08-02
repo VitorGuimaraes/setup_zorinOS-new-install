@@ -309,13 +309,12 @@ function loop() {
             if [[ "$XDG_CURRENT_DESKTOP" == *"XFCE"* ]]; then
                 clear && bash src/brightness-and-temperature.sh
                 loop
-                ;;
             else 
                 printf "\nPlease, install it only in XFCE graphic interface.\n"
                 sleep 2
                 loop
-                ;;
             fi
+            ;;
 
         ${array[telegram]}) 
             clear && bash src/telegram.sh
