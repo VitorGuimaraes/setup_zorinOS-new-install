@@ -7,17 +7,20 @@ printf "" > logs/logs_dbeaver.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → wget -q https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb \n\n%s" \
-"$(wget -q https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb 2>&1)" \
+| tee -a logs/logs_dbeaver.txt
+printf "$(wget -q https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb 2>&1)" \
 | tee -a logs/logs_dbeaver.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo dpkg -i dbeaver-ce_latest_amd64.deb \n\n%s" \
-"$(sudo dpkg -i dbeaver-ce_latest_amd64.deb)" \
+| tee -a logs/logs_dbeaver.txt
+printf "$(sudo dpkg -i dbeaver-ce_latest_amd64.deb)" \
 | tee -a logs/logs_dbeaver.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo rm -v dbeaver-ce_latest_amd64.deb \n%s" \
-"$(sudo rm -v dbeaver-ce_latest_amd64.deb)" \
+| tee -a logs/logs_dbeaver.txt
+printf "$(sudo rm -v dbeaver-ce_latest_amd64.deb)" \
 | tee -a logs/logs_dbeaver.txt
 
 

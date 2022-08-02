@@ -8,17 +8,16 @@ printf "" > logs/logs_docker.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → sudo apt install ca-certificates curl gnupg lsb-release -y\n\n%s" \
-"$(sudo apt install ca-certificates curl gnupg lsb-release -y)" \
+| tee -a logs/logs_docker.txt
+printf "$(sudo apt install ca-certificates curl gnupg lsb-release -y)" \
 | tee -a logs/logs_docker.txt
 
-printf "\n\n************************ $(date +"%D %T") ************************ 
-→ curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
-| sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg\n\n%s" \
-"$(curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+# printf "\n\n************************ $(date +"%D %T") ************************" \
+printf "$(curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
 | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg)" \
 | tee -a logs/logs_docker.txt
 
-printf "************************ $(date +"%D %T") ************************ 
+printf "\n************************ $(date +"%D %T") ************************ 
 → deb [arch=$(dpkg --print-architecture) \
 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
 https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\
@@ -31,23 +30,26 @@ https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
 
 printf "\n************************ $(date +"%D %T") ************************ 
 → sudo apt update -y 2>&1\n%s" \
-"$(sudo apt update -y 2>&1)" \
+| tee -a logs/logs_docker.txt
+printf "$(sudo apt update -y 2>&1)" \
 | tee -a logs/logs_docker.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y 2>&1\n%s" \
-"$(sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y 2>&1)" \
+| tee -a logs/logs_docker.txt
+printf "$(sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y 2>&1)" \
 | tee -a logs/logs_docker.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo docker run hello-world\n%s" \
-"$(sudo docker run hello-world)" \
+| tee -a logs/logs_docker.txt
+printf "$(sudo docker run hello-world)" \
 | tee -a logs/logs_docker.txt
 
 
 docker_check=$(whereis docker)
 dockercompose_check=$(whereis compose)
-clear 
+# clear 
 
 if [[ "$docker_check" == *"/etc/docker"* ]]; then 
   printf "\n\n************************ $(date +"%D %T") ************************" \

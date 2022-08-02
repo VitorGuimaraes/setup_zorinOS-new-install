@@ -8,9 +8,9 @@ printf "" > logs/logs_git.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → sudo apt install git-all -y \n\n%s" \
-"$(sudo apt install git-all -y)" \
 | tee -a logs/logs_git.txt
-
+printf "$(sudo apt install git-all -y)" \
+| tee -a logs/logs_git.txt
 
 git_check=$(whereis git)
 clear 

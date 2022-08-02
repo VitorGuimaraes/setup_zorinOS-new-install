@@ -8,18 +8,21 @@ printf "" > logs/logs_chrome.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb\n\n%s" \
-"$(wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb 2>&1)" \
+| tee -a logs/logs_chrome.txt
+printf "$(wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb 2>&1)" \
 | tee -a logs/logs_chrome.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo dpkg -i google-chrome-stable_current_amd64.deb\n\n%s" \
-"$(sudo dpkg -i google-chrome-stable_current_amd64.deb)" \
+| tee -a logs/logs_chrome.txt
+printf "$(sudo dpkg -i google-chrome-stable_current_amd64.deb)" \
 | tee -a logs/logs_chrome.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo rm -v google-chrome-stable_current_amd64.deb \n%s" \
-"$(sudo rm -v google-chrome-stable_current_amd64.deb)" \
-| tee -a logs/logs_elixir.txt
+| tee -a logs/logs_chrome.txt
+printf "$(sudo rm -v google-chrome-stable_current_amd64.deb)" \
+| tee -a logs/logs_chrome.txt
 
 chrome_check=$(whereis google-chrome) 
 clear 

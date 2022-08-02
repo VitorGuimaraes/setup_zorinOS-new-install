@@ -8,7 +8,8 @@ printf "" > logs/logs_telegram.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → sudo snap install telegram-desktop\n%s" \
-"$(sudo snap install telegram-desktop)" \
+| tee -a logs/logs_telegram.txt
+printf "$(sudo snap install telegram-desktop)" \
 | tee -a logs/logs_telegram.txt
 
 

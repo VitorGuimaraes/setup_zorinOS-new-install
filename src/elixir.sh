@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# In case of errors, try install manually:
+# In case of errors, try to install it manually:
 
 # erlang-solutions: https://www.erlang-solutions.com/downloads/
 # sudo apt-get install esl-erlang=1:25.0-1
@@ -18,27 +18,32 @@ printf "" > logs/logs_elixir.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → wget -q https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb\n\n%s" \
-"$(wget -q https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb 2>&1)" \
+| tee -a logs/logs_elixir.txt
+printf "$(wget -q https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb 2>&1)" \
 | tee -a logs/logs_elixir.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo dpkg -i erlang-solutions_2.0_all.deb\n\n%s" \
-"$(sudo dpkg -i erlang-solutions_2.0_all.deb)" \
+| tee -a logs/logs_elixir.txt
+printf "$(sudo dpkg -i erlang-solutions_2.0_all.deb)" \
 | tee -a logs/logs_elixir.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo apt update -y \n\n%s" \
-"$(sudo apt update -y)" \
+| tee -a logs/logs_elixir.txt
+printf "$(sudo apt update -y)" \
 | tee -a logs/logs_elixir.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo apt install esl-erlang elixir -y\n\n%s" \
-"$(sudo apt install esl-erlang elixir -y)" \
+| tee -a logs/logs_elixir.txt
+printf "$(sudo apt install esl-erlang elixir -y)" \
 | tee -a logs/logs_elixir.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo rm -v erlang-solutions_2.0_all.deb \n%s" \
-"$(sudo rm -v erlang-solutions_2.0_all.deb)" \
+| tee -a logs/logs_elixir.txt
+printf "$(sudo rm -v erlang-solutions_2.0_all.deb)" \
 | tee -a logs/logs_elixir.txt
 
 

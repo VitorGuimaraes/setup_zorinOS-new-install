@@ -8,12 +8,13 @@ printf "" > logs/logs_modern_terminal.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → sudo apt install zsh cargo -y\n%s" \
-"$(sudo apt install zsh cargo -y 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(sudo apt install zsh cargo -y 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → cargo install exa \n\n%s" \
-"$(cargo install exa 2>&1)" \
+printf "$(cargo install exa 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************" \
@@ -26,84 +27,100 @@ printf "\n%s" "$(chsh -s /usr/bin/zsh)" | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → cp -v modern-terminal/.p10k.zsh ~/ 2>&1\n%s" \
-"$(cp -v modern-terminal/.p10k.zsh ~/ 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(cp -v modern-terminal/.p10k.zsh ~/ 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → cp -v modern-terminal/.hyper.js ~/ 2>&1\n%s" \
-"$(cp -v modern-terminal/.hyper.js ~/ 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(cp -v modern-terminal/.hyper.js ~/ 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → cp -v modern-terminal/.zshrc ~/ 2>&1\n%s" \
-"$(cp -v modern-terminal/.zshrc ~/ 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(cp -v modern-terminal/.zshrc ~/ 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → cp -v modern-terminal/.zsh-autosuggestions.zsh ~/ 2>&1\n%s" \
-"$(cp -v modern-terminal/.zsh-autosuggestions.zsh ~/ 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(cp -v modern-terminal/.zsh-autosuggestions.zsh ~/ 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → wget -q https://releases.hyper.is/download/deb\n\n %s" \
-"$(wget -q https://releases.hyper.is/download/deb 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(wget -q https://releases.hyper.is/download/deb 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo dpkg -i deb \n\n%s" \
-"$(sudo dpkg -i deb )" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(sudo dpkg -i deb )" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo rm -v deb 2>&1 \n%s" \
-"$(sudo rm -v deb 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(sudo rm -v deb 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo update-alternatives --install /usr/bin/x-terminal-emulator \
 x-terminal-emulator /usr/local/bin/hyper 50 %s" \
-"$(sudo update-alternatives --install /usr/bin/x-terminal-emulator \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(sudo update-alternatives --install /usr/bin/x-terminal-emulator \
 x-terminal-emulator /usr/local/bin/hyper 50)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sed -i '/TerminalEmulator/d' ~/.config/xfce4/helpers.rc %s" \
-"$(sed -i '/TerminalEmulator/d' ~/.config/xfce4/helpers.rc)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(sed -i '/TerminalEmulator/d' ~/.config/xfce4/helpers.rc)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → echo "TerminalEmulator=debian-x-terminal-emulator" >> ~/.config/xfce4/helpers.rc \n\n%s" \
-"$(echo "TerminalEmulator=debian-x-terminal-emulator" >> ~/.config/xfce4/helpers.rc)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(echo "TerminalEmulator=debian-x-terminal-emulator" >> ~/.config/xfce4/helpers.rc)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip\n\n %s" \
-"$(wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → unzip -o FiraCode.zip -d ~/.local/share/fonts/ 2>&1\n\n%s" \
-"$(unzip -o FiraCode.zip -d ~/.local/share/fonts/ 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(unzip -o FiraCode.zip -d ~/.local/share/fonts/ 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → sudo rm -v FiraCode.zip 2>&1 \n%s" \
-"$(sudo rm -v FiraCode.zip 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(sudo rm -v FiraCode.zip 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k\n\n%s" \
-"$(git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf 2>&1 \n%s" \
-"$(git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf 2>&1)" \
 | tee -a logs/logs_fzf.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → ~/.fzf/install 2>&1 \n%s" \
-"$(echo 'y' | ~/.fzf/install 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(echo 'y' | ~/.fzf/install 2>&1)" \
 | tee -a logs/logs_fzf.txt
 
 zsh_check=$(whereis zsh)
