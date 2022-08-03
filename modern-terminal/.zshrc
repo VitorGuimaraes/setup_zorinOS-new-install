@@ -50,9 +50,9 @@ source ~/.zsh-autosuggestions.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Docker:
-# sudo usermod -aG docker $USER
-# newgrp docker
-# sudo chmod 666 /var/run/docker.sock
+sudo usermod -aG docker $USER
+newgrp docker
+sudo chmod 666 /var/run/docker.sock
 
 export PATH=$PATH:/bin:/usr/bin:/usr/local/bin:$HOME/.cargo/bin/
 export EXA_COLORS="di=90;4:Dockerfile=36:*.css=36:*.jsx=36:*.c=36:*.cpp=36:*.go=36:*.py=36:*.js=34:*.exs=34:*.ex=34:*.php=34:*.html=31:*.rb=31:*.java=31:*.js=33:*.java=33:*.yml=35:*.yaml=35:*.lock=32:*.sh=32:*.zsh=32:*.bash*=32:*.zshrc=32:*.tar=32:*.gz=32:*.zip=32:*.rar=32:*.tar.gz=32:*.tar.xz=32"
