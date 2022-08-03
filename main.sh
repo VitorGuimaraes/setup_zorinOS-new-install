@@ -8,6 +8,7 @@ enum_keys=(
     postgresql 
     docker 
     git
+    node
     vscode 
     insomnia
     dbeaver 
@@ -44,6 +45,7 @@ function checks() {
     docker_check=$(whereis docker)
     dockercompose_check=$(whereis compose)
     git_check=$(whereis git)
+    node_check=$(ls /opt | grep "*node*")
     vscode_check=$(whereis code)
     insomnia_check=$(whereis insomnia)
     dbeaver_check=$(whereis dbeaver)  
@@ -95,6 +97,12 @@ function checks() {
         array[git]="* Git"
     else
         array[git]="** Git"
+    fi
+
+    if [[ "$node_check" == *"v16"* ]]; then
+        array[node]="* NodeJs"
+    else
+        array[node]="** NodeJs"
     fi
 
     if [[ "$vscode_check" == *"/usr/bin/code"* ]]; then
@@ -237,6 +245,7 @@ function loop() {
             bash src/postgresql.sh
             bash src/docker.sh
             bash src/git.sh
+            bash src/node.sh
             bash src/vscode.sh
             bash src/insomnia.sh
             bash src/dbeaver.sh
@@ -275,6 +284,11 @@ function loop() {
         
         ${array[git]}) 
             clear && bash src/git.sh
+            loop
+            ;;
+        
+        ${array[node]}) 
+            clear && bash src/node.sh
             loop
             ;;
 
