@@ -35,6 +35,8 @@ else
     sleep 2
 fi
 
+source ~/.zshrc
+
 node_check=$(node -v)
 clear
 
