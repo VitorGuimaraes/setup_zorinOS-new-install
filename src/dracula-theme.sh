@@ -60,8 +60,14 @@ printf "\n\n************************ $(date +"%D %T") ************************
 printf "$(gsettings set org.gnome.desktop.interface gtk-theme 'Dracula')" \
 | tee -a logs/logs_dracula_theme.txt
 
+# install dconf
+sudo apt-get install dconf-editor
+
+# load settings
+dconf load / < modern-terminal/user.conf
+
 dracula_theme_check=$(gsettings get org.gnome.desktop.interface gtk-theme)
-clear
+# clear
 
 if [[ "$dracula_theme_check" == *"Dracula"* ]]; then
     printf "************************ $(date +"%D %T") ************************"
