@@ -67,7 +67,7 @@ sudo apt-get install dconf-editor
 dconf load / < modern-terminal/user.conf
 
 dracula_theme_check=$(gsettings get org.gnome.desktop.interface gtk-theme)
-# clear
+clear
 
 if [[ "$dracula_theme_check" == *"Dracula"* ]]; then
     printf "************************ $(date +"%D %T") ************************"
