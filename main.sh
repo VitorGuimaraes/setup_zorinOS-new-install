@@ -15,7 +15,7 @@ enum_keys=(
     modern_terminal 
     dracula_theme 
     dev_icons 
-    brightness_and_temperature
+    # brightness_and_temperature
     telegram 
     vlc 
     chrome
@@ -143,19 +143,19 @@ function checks() {
     array[dev_icons]="* Dev Icons"
 
 
-    if [[ "$brightness_and_temperature_files_check" == *"brightness-decrease.sh"* &&
-          "$brightness_and_temperature_files_check" == *"brightness-increase.sh"* &&
-          "$brightness_and_temperature_files_check" == *"color-temp-decrease.sh"* &&
-          "$brightness_and_temperature_files_check" == *"color-temp-increase.sh"* &&
-          "$brightness_and_temperature_shortcut_check" == *"brightness-decrease.sh"* &&
-          "$brightness_and_temperature_shortcut_check" == *"brightness-increase.sh"* &&
-          "$brightness_and_temperature_shortcut_check" == *"color-temp-decrease.sh"* &&
-          "$brightness_and_temperature_shortcut_check" == *"color-temp-increase.sh"* 
-        ]]; then
-        array[brightness_and_temperature]="* Brightness and Temperature Control"
-    else
-        array[brightness_and_temperature]="** Brightness and Temperature Control"
-    fi
+    # if [[ "$brightness_and_temperature_files_check" == *"brightness-decrease.sh"* &&
+    #       "$brightness_and_temperature_files_check" == *"brightness-increase.sh"* &&
+    #       "$brightness_and_temperature_files_check" == *"color-temp-decrease.sh"* &&
+    #       "$brightness_and_temperature_files_check" == *"color-temp-increase.sh"* &&
+    #       "$brightness_and_temperature_shortcut_check" == *"brightness-decrease.sh"* &&
+    #       "$brightness_and_temperature_shortcut_check" == *"brightness-increase.sh"* &&
+    #       "$brightness_and_temperature_shortcut_check" == *"color-temp-decrease.sh"* &&
+    #       "$brightness_and_temperature_shortcut_check" == *"color-temp-increase.sh"* 
+    #     ]]; then
+    #     array[brightness_and_temperature]="* Brightness and Temperature Control"
+    # else
+    #     array[brightness_and_temperature]="** Brightness and Temperature Control"
+    # fi
 
     if [[ "$telegram_check" == *"/snap/bin/telegram-desktop"* ]]; then
         array[telegram]="* Telegram"
@@ -251,7 +251,7 @@ function loop() {
             bash src/modern-terminal.sh
             bash src/dracula-theme.sh
             bash src/dev-icons.sh
-            bash src/brightness-and-temperature.sh
+            # bash src/brightness-and-temperature.sh
             bash src/telegram.sh
             bash src/vlc.sh
             bash src/chrome.sh
@@ -321,16 +321,16 @@ function loop() {
             loop
             ;;
 
-        ${array[brightness_and_temperature]})
-            if [[ "$XDG_CURRENT_DESKTOP" == *"XFCE"* ]]; then
-                clear && bash src/brightness-and-temperature.sh
-                loop
-            else 
-                printf "\nPlease, install it only in XFCE graphic interface.\n"
-                sleep 2
-                loop
-            fi
-            ;;
+        # ${array[brightness_and_temperature]})
+        #     if [[ "$XDG_CURRENT_DESKTOP" == *"XFCE"* ]]; then
+        #         clear && bash src/brightness-and-temperature.sh
+        #         loop
+        #     else 
+        #         printf "\nPlease, install it only in XFCE graphic interface.\n"
+        #         sleep 2
+        #         loop
+        #     fi
+        #     ;;
 
         ${array[telegram]}) 
             clear && bash src/telegram.sh
