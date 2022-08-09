@@ -12,7 +12,6 @@ printf "************************ $(date +"%D %T") ************************
 printf "$(sudo apt install ca-certificates curl gnupg lsb-release -y)" \
 | tee -a logs/logs_docker.txt
 
-# printf "\n\n************************ $(date +"%D %T") ************************" \
 printf "$(curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
 | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg)" \
 | tee -a logs/logs_docker.txt
