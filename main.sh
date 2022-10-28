@@ -45,7 +45,7 @@ function checks() {
     docker_check=$(whereis docker)
     dockercompose_check=$(whereis compose)
     git_check=$(whereis git)
-    node_check=$(ls /opt)
+    node_check=$(node -v)
     vscode_check=$(whereis code)
     insomnia_check=$(whereis insomnia)
     dbeaver_check=$(whereis dbeaver)  
@@ -99,7 +99,7 @@ function checks() {
         array[git]="** Git"
     fi
 
-    if [[ "$node_check" == *"node"* ]]; then
+    if [[ "$node_check" == *"v"* ]]; then
         array[node]="* NodeJs"
     else
         array[node]="** NodeJs"
