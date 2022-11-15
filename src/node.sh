@@ -1,24 +1,24 @@
 #!/bin/bash
 
 printf "\nInstalling NodeJS...\n\n"
-# sleep 1
+sleep 1
 
-# mkdir -p logs 
-# printf "" > logs/logs_node.txt
+mkdir -p logs 
+printf "" > logs/logs_node.txt
 
-# printf '\n\n# nvm variables' \
-# | tee -a $HOME/.zshrc
-# printf '\nexport NVM_DIR="$HOME/.nvm"' \
-# | tee -a $HOME/.zshrc
-# printf '\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' \
-# | tee -a $HOME/.zshrc
-# printf '\n[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' \
-# | tee -a $HOME/.zshrc
+printf '\n\n# nvm variables' \
+| tee -a $HOME/.zshrc
+printf '\nexport NVM_DIR="$HOME/.nvm"' \
+| tee -a $HOME/.zshrc
+printf '\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' \
+| tee -a $HOME/.zshrc
+printf '\n[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' \
+| tee -a $HOME/.zshrc
 
-# git_check=$(whereis git)
-# if [[ "$git_check" != *"/usr/bin/git"* ]]; then
-#     bash src/git.sh
-# fi
+git_check=$(whereis git)
+if [[ "$git_check" != *"/usr/bin/git"* ]]; then
+    bash src/git.sh
+fi
 
 git clone https://github.com/nvm-sh/nvm.git $HOME/.nvm
 cd $HOME/.nvm
