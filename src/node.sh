@@ -8,7 +8,7 @@ printf "" > logs/logs_node.txt
 
 printf '\n\n# nvm variables' \
 | tee -a ~/.zshrc
-printf '\nexport NVM_DIR="$HOME/.nvm"' \
+printf '\nexport NVM_DIR="~/.nvm"' \
 | tee -a ~/.zshrc
 printf '\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' \
 | tee -a ~/.zshrc
@@ -21,21 +21,20 @@ if [[ "$git_check" != *"/usr/bin/git"* ]]; then
 fi
 
 NVM_DIR="$HOME/.nvm"
-current_path=$(pwd)
 git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
 cd "$NVM_DIR"
 git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-cd $current_path
 
-source ~/.zshrc
+# load and start NVM 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 nvm install node
-source ~/.zshrc
 
 node_check=$(node -v)
-clear
+# clear
 
-if [[ "$node_check" == *"v"* ]]; then
+if [[ "$node_check" == *"versions/node/"* ]]; then
     printf "\n\n************************ $(date +"%D %T") ************************" \
     | tee -a logs/logs_node.txt
     printf "\n→ node -v \n" | tee -a logs/logs_node.txt 
