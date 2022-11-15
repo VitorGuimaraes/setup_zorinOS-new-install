@@ -7,14 +7,21 @@ mkdir -p logs
 printf "" > logs/logs_modern_terminal.txt
 
 printf "************************ $(date +"%D %T") ************************ 
-→ sudo apt install zsh cargo -y\n%s" \
+→ sudo apt install zsh -y\n%s" \
 | tee -a logs/logs_modern_terminal.txt
-printf "$(sudo apt install zsh cargo -y 2>&1)" \
+printf "$(sudo apt install zsh -y 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+
+
+printf "************************ $(date +"%D %T") ************************ 
+→ curl https://sh.rustup.rs -sSf | sh \n%s" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(curl https://sh.rustup.rs -sSf | sh -s -- -y)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
 → cargo install exa \n\n%s" \
-printf "$(cargo install exa 2>&1)" \
+printf "$(cargo install exa)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************" \
