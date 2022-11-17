@@ -19,6 +19,7 @@ enum_keys=(
     telegram 
     vlc 
     chrome
+    simplescreenrecorder
     system_program_problem_detected
     static_noise_power_save
     uninstaller
@@ -58,6 +59,7 @@ function checks() {
     telegram_check=$(whereis telegram-desktop)
     vlc_check=$(whereis vlc)
     chrome_check=$(whereis google-chrome) 
+    simplescreenrecorder_check=$(whereis simplescreenrecorder)
     brightness_and_temperature_files_check=$(ls -a ~/)
 
     if [[ "$XDG_CURRENT_DESKTOP" == *"XFCE"* ]]; then
@@ -174,6 +176,12 @@ function checks() {
     else
         array[chrome]="** Google Chrome"
     fi
+    
+    if [[ "$simplescreenrecorder_check" == *"usr/bin/simplescreenrecorder"* ]]; then
+        array[simplescreenrecorder]="* Simple Screen Recorder"
+    else
+        array[simplescreenrecorder]="** Simple Screen Recorder"
+    fi
 
     if [[ "$system_program_problem_detected_check" == *"enabled=0"* ]]; then
         array[system_program_problem_detected]="* Fix for 'System Program Problem Detected'"
@@ -255,6 +263,7 @@ function loop() {
             bash src/telegram.sh
             bash src/vlc.sh
             bash src/chrome.sh
+            bash src/simple_screen_recorder.sh
             bash src/system-program-problem.sh 
             bash src/static-noise-power-save.sh 
             bash src/uninstaller.sh
@@ -344,6 +353,11 @@ function loop() {
 
         ${array[chrome]}) 
             clear && bash src/chrome.sh
+            loop
+            ;;
+        
+        ${array[simplescreenrecorder]}) 
+            clear && bash src/simple_screen_recorder.sh
             loop
             ;;
         
