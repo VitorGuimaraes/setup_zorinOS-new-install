@@ -46,9 +46,14 @@ printf "$(sudo docker run hello-world)" \
 | tee -a logs/logs_docker.txt
 
 
+echo '{' >> $HOME/.docker/config.json
+echo '\t"psFormat": "\\nName: \\t\\t{{.Names}}\\tCommand: {{.Command}}\\nNetworks: \\t{{.Networks}}\\nRunningFor: \\t{{.RunningFor}}\\nPorts: \\t\\t{{.Ports}}"' >> $HOME/.docker/config.json
+echo '}' >> $HOME/.docker/config.json
+
 docker_check=$(whereis docker)
 dockercompose_check=$(whereis compose)
-# clear 
+clear
+
 
 if [[ "$docker_check" == *"/etc/docker"* ]]; then 
   printf "\n\n************************ $(date +"%D %T") ************************" \
