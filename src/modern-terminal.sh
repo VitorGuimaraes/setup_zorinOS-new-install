@@ -57,6 +57,12 @@ printf "$(cp -v modern-terminal/.zsh-autosuggestions.zsh ~/ 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
 printf "\n\n************************ $(date +"%D %T") ************************ 
+→ cp -v modern-terminal/.zsh-syntax-highlighting ~/ 2>&1\n%s" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(cp -v .zsh-syntax-highlighting ~/ 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
+
+printf "\n\n************************ $(date +"%D %T") ************************ 
 → wget -q https://releases.hyper.is/download/deb\n\n %s" \
 | tee -a logs/logs_modern_terminal.txt
 printf "$(wget -q https://releases.hyper.is/download/deb 2>&1)" \
