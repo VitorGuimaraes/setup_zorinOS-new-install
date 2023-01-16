@@ -26,7 +26,7 @@ module.exports = {
         // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for █
         cursorShape: 'BLOCK',
         // set to `true` (without backticks and without quotes) for blinking cursor
-        cursorBlink: false,
+        cursorBlink: true,
         // color of the text
         foregroundColor: '#fff',
         // terminal background color
