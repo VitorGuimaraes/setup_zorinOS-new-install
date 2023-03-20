@@ -12,6 +12,11 @@ printf "************************ $(date +"%D %T") ************************
 printf "$(sudo apt install zsh -y 2>&1)" \
 | tee -a logs/logs_modern_terminal.txt
 
+printf "************************ $(date +"%D %T") ************************ 
+→ sudo apt install build-essential -y\n%s" \
+| tee -a logs/logs_modern_terminal.txt
+printf "$(sudo apt install build-essential -y 2>&1)" \
+| tee -a logs/logs_modern_terminal.txt
 
 printf "************************ $(date +"%D %T") ************************ 
 → curl https://sh.rustup.rs -sSf | sh \n%s" \
