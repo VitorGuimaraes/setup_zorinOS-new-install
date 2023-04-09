@@ -1,41 +1,25 @@
 #!/bin/bash
 
-printf "\nInstalling Git...\n\n"
-sleep 1
+printf "\nInstalling Git...\n"
 
-mkdir -p logs 
-printf "" > logs/logs_git.txt
+sudo add-apt-repository --yes ppa:git-core/ppa
+sudo apt update -y
+sudo apt install git -y
 
-printf "************************ $(date +"%D %T") ************************ 
-→ sudo add-apt-repository ppa:git-core/ppa \n\n%s" \
-| tee -a logs/logs_git.txt
-printf "$(sudo add-apt-repository ppa:git-core/ppa)" \
-| tee -a logs/logs_git.txt
-
-printf "************************ $(date +"%D %T") ************************ 
-→ sudo apt update \n\n%s" \
-| tee -a logs/logs_git.txt
-printf "$(sudo apt update)" \
-| tee -a logs/logs_git.txt
-
-printf "************************ $(date +"%D %T") ************************ 
-→ sudo apt install git \n\n%s" \
-| tee -a logs/logs_git.txt
-printf "$(sudo apt install git)" \
-| tee -a logs/logs_git.txt
-
+# create aliases
+git config --global alias.br branch
+git config --global alias.sw switch
+git config --global alias.st status
+git config --global alias.cm commit
+git config --global alias.pu pull
 
 git_check=$(whereis git)
 clear 
 
 if [[ "$git_check" == *"/usr/bin/git"* ]]; then
-    printf "\n\n************************ $(date +"%D %T") ************************" \
-    | tee -a logs/logs_git.txt
-    printf "\n→ git --version\n" | tee -a logs/logs_git.txt 
-    printf "$(git --version) \n" | tee -a logs/logs_git.txt 
+    git --version
     printf "Git installed!"
 else
-    printf "Git not installed! Check logs for errors..."
-    sleep 2
+    printf "Git not installed!"
 fi
 printf "\n*******************************************************************\n"

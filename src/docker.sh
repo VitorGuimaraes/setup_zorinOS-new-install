@@ -1,78 +1,46 @@
 #!/bin/bash
 
-printf "\nInstalling Docker...\n\n"
-sleep 1
+printf "\nInstalling Docker...\n"
 
-mkdir -p logs 
-printf "" > logs/logs_docker.txt
+sudo apt install ca-certificates curl gnupg
 
-printf "************************ $(date +"%D %T") ************************ 
-→ sudo apt install ca-certificates curl gnupg lsb-release -y\n\n%s" \
-| tee -a logs/logs_docker.txt
-printf "$(sudo apt install ca-certificates curl gnupg lsb-release -y)" \
-| tee -a logs/logs_docker.txt
+sudo mkdir -m 0755 -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+| sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-printf "$(curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
-| sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg)" \
-| tee -a logs/logs_docker.txt
+echo \
+"deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+"$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-printf "\n************************ $(date +"%D %T") ************************ 
-→ deb [arch=$(dpkg --print-architecture) \
-signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
-https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\
-| sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \n" \
-| tee -a logs/logs_docker.txt
-printf "%s\n" "deb [arch=$(dpkg --print-architecture) \
-signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
-https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
-| sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-printf "\n************************ $(date +"%D %T") ************************ 
-→ sudo apt update -y 2>&1\n%s" \
-| tee -a logs/logs_docker.txt
-printf "$(sudo apt update -y 2>&1)" \
-| tee -a logs/logs_docker.txt
-
-printf "\n\n************************ $(date +"%D %T") ************************ 
-→ sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y 2>&1\n%s" \
-| tee -a logs/logs_docker.txt
-printf "$(sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y 2>&1)" \
-| tee -a logs/logs_docker.txt
-
-printf "\n\n************************ $(date +"%D %T") ************************ 
-→ sudo docker run hello-world\n%s" \
-| tee -a logs/logs_docker.txt
-printf "$(sudo docker run hello-world)" \
-| tee -a logs/logs_docker.txt
-
+sudo apt update -y
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo docker run hello-world
 
 echo '{' >> $HOME/.docker/config.json
 echo '\t"psFormat": "\\nName: \\t\\t{{.Names}}\\tCommand: {{.Command}}\\nNetworks: \\t{{.Networks}}\\nRunningFor: \\t{{.RunningFor}}\\nPorts: \\t\\t{{.Ports}}"' >> $HOME/.docker/config.json
 echo '}' >> $HOME/.docker/config.json
 
+sudo usermod -aG docker $USER
+newgrp docker
+sudo chmod 666 /var/run/docker.sock
+
 docker_check=$(whereis docker)
 dockercompose_check=$(whereis compose)
+
 clear
 
-
-if [[ "$docker_check" == *"/etc/docker"* ]]; then 
-  printf "\n\n************************ $(date +"%D %T") ************************" \
-  | tee -a logs/logs_docker.txt
-  printf "\n→ docker --version\n" | tee -a logs/logs_docker.txt 
-  printf "$(docker --version) \n" | tee -a logs/logs_docker.txt 
-  printf "Docker installed!"
+if [[ "$docker_check" == *"/etc/docker"* ]]; then  
+  docker --version
+  printf "Docker installed!\n"
 else 
-  printf "Docker not installed! Check logs for errors...\n"
+  printf "Docker not installed!\n"
 fi 
 
-if [[ "$dockercompose_check" == *"/usr/bin/compose"* ]]; then
-  printf "\n************************ $(date +"%D %T") ************************" \
-  | tee -a logs/logs_docker.txt
-  printf "\n→ docker compose version\n" | tee -a logs/logs_docker.txt 
-  printf "$(docker compose version)\n" | tee -a logs/logs_docker.txt 
+if [[ "$dockercompose_check" == *"/usr/bin/compose"* ]]; then 
+  docker compose version 
   printf "Docker Compose installed!"
 else 
-  printf "Docker Compose not installed! Check logs for errors...\n"
-  sleep 2
+  printf "Docker Compose not installed!"
 fi 
 printf "\n*******************************************************************\n"

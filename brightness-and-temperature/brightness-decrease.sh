@@ -20,6 +20,6 @@ MIN_BRIGHTNESS=0.0
 # decrease brightness
 current_brightness=$(echo "$current_brightness-0.04" | bc)
 if [ $(echo "$current_brightness >= $MIN_BRIGHTNESS" | bc) -eq 1 ]; then
-    sed -i "s/default_brightness=.*/default_brightness=$current_brightness/" ~/.zshrc
+    sed -i "s/default_brightness=.*/default_brightness=$current_brightness/" $HOME/.zshrc
     xrandr --output $screen_name --brightness $current_brightness --gamma $red:$green:$blue
 fi

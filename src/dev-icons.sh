@@ -1,10 +1,6 @@
 #!/bin/bash
 
-printf "\nInstalling Dev Icons...\n\n"
-sleep 1
-
-mkdir -p logs 
-printf "" > logs/logs_dev_icons.txt
+printf "\nInstalling Dev Icons...\n"
 
 # Copy xml files
 sudo cp -v DevIcons/*.xml /usr/share/mime/packages
@@ -35,8 +31,8 @@ done
 # update mime-database
 sudo update-mime-database /usr/share/mime
 
-# clear
-
-printf "************************ $(date +"%D %T") ************************"
-printf "\nDev Icons installed!"
+clear
+printf "Dev Icons installed!"
 printf "\n*******************************************************************\n"
+sleep 1
+clear

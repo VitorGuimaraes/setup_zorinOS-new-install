@@ -1,5 +1,8 @@
 #!/bin/bash
 
+printf "Please insert your root password: "
+read password
+
 # Define enum keys
 enum_keys=(
     all 
@@ -9,21 +12,15 @@ enum_keys=(
     docker 
     git
     node
+    modern_terminal 
+    dracula_theme 
     vscode 
     insomnia
     dbeaver 
-    modern_terminal 
-    dracula_theme 
-    dev_icons 
-    # brightness_and_temperature
+    obsidian
+    discord
     telegram 
-    vlc 
-    chrome
-    simplescreenrecorder
-    system_program_problem_detected
     static_noise_power_save
-    uninstaller
-    quit
 )
 
 # Declare keys associate with indexes
@@ -33,360 +30,204 @@ for ((i=0; $i < $enum_lenght; i++)); do
     declare ${name}=$i 
 done
 
-# Create elixir packages folder
-mkdir -p ~/.mix/archives
+# Install Flatpak if not installed
+flatpak_check=$(flatpak --version)
+if [[ "$flatpak_check" != *"Flatpak"* ]]; then
+    printf "\nInstalling Flatpak...\n\n"
+    echo $password | sudo -S apt install flatpak -y
+fi
+
+installed="Already installed"
+not_installed="Not installed"
 
 # Define array elements
-array[all]="Install All"
 function checks() {
 
     elixir_check=$(whereis elixir)
-    phoenix_check=$(ls ~/.mix/archives | grep "phx")
+    phoenix_check=$(ls $HOME/.mix/archives | grep "phx")
     postgresql_check=$(whereis psql)
     docker_check=$(whereis docker)
     dockercompose_check=$(whereis compose)
     git_check=$(whereis git)
     node_check=$(whereis node)
-    vscode_check=$(whereis code)
-    insomnia_check=$(whereis insomnia)
-    dbeaver_check=$(whereis dbeaver)  
     zsh_check=$(whereis zsh)
     hyper_check=$(whereis hyper)
     firacode_check=$(fc-list | grep "Fira Code Regular Nerd Font Complete.ttf")
     exa_check=$(whereis exa)
-    power_level10k_check=$(ls -a ~/)
+    power_level10k_check=$(ls -a $HOME/)
     dracula_theme_check=$(gsettings get org.gnome.desktop.interface gtk-theme)
-    telegram_check=$(whereis telegram-desktop)
-    vlc_check=$(whereis vlc)
-    chrome_check=$(whereis google-chrome) 
-    simplescreenrecorder_check=$(whereis simplescreenrecorder)
-    brightness_and_temperature_files_check=$(ls -a ~/)
+    flatpak_apps_check=$(flatpak list)
 
-    if [[ "$XDG_CURRENT_DESKTOP" == *"XFCE"* ]]; then
-        brightness_and_temperature_shortcut_check=$(xfconf-query -c xfce4-keyboard-shortcuts -p /commands/custom -lv)
-    fi
 
-    sudo touch /etc/default/apport
-    system_program_problem_detected_check=$(cat /etc/default/apport | grep "enabled")  
-    static_noise_power_save_check=$(ls /etc/modprobe.d)
+    echo $password | sudo -S touch /etc/default/apport
+    static_noise_check=$(ls /etc/modprobe.d)
 
-    if [[ "$elixir_check" == *"/usr/bin/elixir"* ]]; then
-        array[elixir]="* Elixir"
+    if [[ "$elixir_check" == *"/opt/elixir/bin"* ]]; then
+        array[elixir]=$installed
     else
-        array[elixir]="** Elixir"
+        array[elixir]=$not_installed
     fi
 
     if [[ "$phoenix_check" == *"phx_new"* ]]; then
-        array[phoenix]="* Phoenix"
+        array[phoenix]=$installed
     else
-        array[phoenix]="** Phoenix"
+        array[phoenix]=$not_installed
     fi
 
     if [[ "$postgresql_check" == *"/usr/bin/psql"* ]]; then
-        array[postgresql]="* PostgreSQL"
+        array[postgresql]=$installed
     else
-        array[postgresql]="** PostgreSQL"
+        array[postgresql]=$not_installed
     fi
 
     if [[ "$docker_check" == *"/etc/docker"* && 
         "$dockercompose_check" == *"/usr/bin/compose"* ]]; then
-        array[docker]="* Docker"
+        array[docker]=$installed
     else 
-        array[docker]="** Docker" 
+        array[docker]=$not_installed
     fi
 
     if [[ "$git_check" == *"/usr/bin/git"* ]]; then
-        array[git]="* Git"
+        array[git]=$installed
     else
-        array[git]="** Git"
+        array[git]=$not_installed
     fi
 
     if [[ "$node_check" == *"versions/node/"* ]]; then
-        array[node]="* NodeJs"
+        array[node]=$installed
     else
-        array[node]="** NodeJs"
-    fi
-
-    if [[ "$vscode_check" == *"/usr/bin/code"* ]]; then
-        array[vscode]="* VS Code"
-    else
-        array[vscode]="** VS Code"
-    fi
-
-    if [[ "$insomnia_check" == *"/snap/bin/insomnia"* ]]; then
-        array[insomnia]="* Insomnia"
-    else
-        array[insomnia]="** Insomnia"
-    fi
-
-    if [[ "$dbeaver_check" == *"/usr/bin/dbeaver"* ]]; then
-        array[dbeaver]="* Dbeaver"
-    else
-        array[dbeaver]="** Dbeaver"
+        array[node]=$not_installed
     fi
 
     if [[ "$zsh_check" == *"/usr/bin/zsh"* &&
-          "$hyper_check" == *"/bin/hyper"* && 
-          "$firacode_check" == *"Fira Code Regular Nerd Font"*  &&
-          "$exa_check" == *".cargo/bin/exa"* && 
-          "$power_level10k_check" == *".powerlevel10k"*
-        ]]; then
-        array[modern_terminal]="* Modern terminal"
+        "$hyper_check" == *"/bin/hyper"* && 
+        "$firacode_check" == *"Fira Code Regular Nerd Font"*  &&
+        "$exa_check" == *".cargo/bin/exa"* && 
+        "$power_level10k_check" == *".powerlevel10k"*
+    ]]; then
+        array[modern_terminal]=$installed
     else
-        array[modern_terminal]="** Modern terminal "
+        array[modern_terminal]=$not_installed
     fi
 
     if [[ "$dracula_theme_check" == *"Dracula"* ]]; then
-        array[dracula_theme]="* Dracula Theme"
+        array[dracula_theme]=$installed
     else
-        array[dracula_theme]="** Dracula Theme"
+        array[dracula_theme]=$not_installed
     fi
 
-    array[dev_icons]="* Dev Icons"
-
-
-    # if [[ "$brightness_and_temperature_files_check" == *"brightness-decrease.sh"* &&
-    #       "$brightness_and_temperature_files_check" == *"brightness-increase.sh"* &&
-    #       "$brightness_and_temperature_files_check" == *"color-temp-decrease.sh"* &&
-    #       "$brightness_and_temperature_files_check" == *"color-temp-increase.sh"* &&
-    #       "$brightness_and_temperature_shortcut_check" == *"brightness-decrease.sh"* &&
-    #       "$brightness_and_temperature_shortcut_check" == *"brightness-increase.sh"* &&
-    #       "$brightness_and_temperature_shortcut_check" == *"color-temp-decrease.sh"* &&
-    #       "$brightness_and_temperature_shortcut_check" == *"color-temp-increase.sh"* 
-    #     ]]; then
-    #     array[brightness_and_temperature]="* Brightness and Temperature Control"
-    # else
-    #     array[brightness_and_temperature]="** Brightness and Temperature Control"
-    # fi
-
-    if [[ "$telegram_check" == *"/snap/bin/telegram-desktop"* ]]; then
-        array[telegram]="* Telegram"
+    if [[ "$flatpak_apps_check" == *"visualstudio"* ]]; then
+        array[vscode]=$installed
     else
-        array[telegram]="** Telegram"
+        array[vscode]=$not_installed
     fi
 
-    if [[ "$vlc_check" == *"/snap/bin/vlc"* ]]; then
-        array[vlc]="* VLC"
+    if [[ "$flatpak_apps_check" == *"insomnia"* ]]; then
+        array[insomnia]=$installed
     else
-        array[vlc]="** VLC"
+        array[insomnia]=$not_installed
     fi
 
-    if [[ "$chrome_check" == *"usr/bin/google-chrome"* ]]; then
-        array[chrome]="* Google Chrome"
+    if [[ "$flatpak_apps_check" == *"dbeaver"* ]]; then
+        array[dbeaver]=$installed
     else
-        array[chrome]="** Google Chrome"
-    fi
-    
-    if [[ "$simplescreenrecorder_check" == *"usr/bin/simplescreenrecorder"* ]]; then
-        array[simplescreenrecorder]="* Simple Screen Recorder"
-    else
-        array[simplescreenrecorder]="** Simple Screen Recorder"
+        array[dbeaver]=$not_installed
     fi
 
-    if [[ "$system_program_problem_detected_check" == *"enabled=0"* ]]; then
-        array[system_program_problem_detected]="* Fix for 'System Program Problem Detected'"
+    if [[ "$flatpak_apps_check" == *"obsidian"* ]]; then
+        array[obsidian]=$installed
     else
-        array[system_program_problem_detected]="** Fix for 'System Program Problem Detected'"
+        array[obsidian]=$not_installed
+    fi
+    if [[ "$flatpak_apps_check" == *"discord"* ]]; then
+        array[discord]=$installed
+    else
+        array[discord]=$not_installed
     fi
 
-    if [[ "$static_noise_power_save_check" == *"audio_disable_powersave.conf"* ]]; then
-        array[static_noise_power_save]="* Fix for Static noise caused by Card's Power Save"
+    if [[ "$flatpak_apps_check" == *"telegram"* ]]; then
+        array[telegram]=$installed
     else
-        array[static_noise_power_save]="** Fix for Static noise caused by Card's Power Save"
+        array[telegram]=$not_installed
+    fi
+
+    if [[ "$static_noise_check" == *"audio_disable_powersave.conf"* ]]; then
+        array[static_noise]=$installed
+    else
+        array[static_noise]=$not_installed
     fi
 }
-array[uninstaller]="Remove trash packages"
-array[quit]="Quit"
 
-if [[ "$XDG_CURRENT_DESKTOP" == *"XFCE"* ]]; then
-    favorites="favorites=exo-web-browser.desktop,exo-file-manager.desktop"
-    current_favorites=$(cat ~/.config/xfce4/panel/whiskermenu-1.rc | grep 'favorites=')
-    function add_favorites() {
-        if [[ $vscode_check == *"/usr/bin/code"* &&
-            $current_favorites != "code.desktop" ]]; then 
-            favorites="${favorites},code.desktop"
-        fi 
+checks
+to_install=$(zenity --list \
+    --checklist \
+    --width 350 \
+    --height 480 \
+    --title "Apps Installer" \
+    --text "<b>Choose apps to install</b>" \
+    --column "" --column "Apps" --column "Installed?"\
+    False "Elixir" "${array[elixir]}" \
+    False "Phoenix" "${array[phoenix]}" \
+    False "Postgres" "${array[postgresql]}" \
+    False "Docker" "${array[docker]}" \
+    False "Git" "${array[git]}" \
+    False "Node" "${array[node]}" \
+    False "Modern Terminal" "${array[modern_terminal]}" \
+    False "Dracula Theme" "${array[dracula_theme]}" \
+    False "VS Code" "${array[vscode]}" \
+    False "Insomnia" "${array[insomnia]}" \
+    False "DBeaver" "${array[dbeaver]}" \
+    False "Obsidian" "${array[obsidian]}" \
+    False "Discord" "${array[discord]}" \
+    False "Telegram" "${array[telegram]}" \
+    False "Static Noise" "${array[static_noise]}" \
+    False "Remove Junk Apps" "" \
+)
 
-        if [[ $insomnia_check == *"/snap/bin/insomnia"* &&
-            $current_favorites != "insomnia_insomnia.desktop" ]]; then 
-            favorites="${favorites},insomnia_insomnia.desktop"
-        fi 
-
-        if [[ $dbeaver_check == *"/usr/bin/dbeaver"* &&
-            $current_favorites != "dbeaver-ce.desktop" ]]; then 
-            favorites="${favorites},dbeaver-ce.desktop" 
-        fi 
-
-        if [[ $chrome_check == *"usr/bin/google-chrome"* &&
-            $current_favorites != "google-chrome.desktop" ]]; then 
-            favorites="${favorites},google-chrome.desktop"
-        fi 
-
-        if [[ $telegram_check == *"/snap/bin/telegram-desktop"* &&
-            $current_favorites != "telegram-desktop.desktop" ]]; then 
-            favorites="${favorites},telegram-desktop_telegram-desktop.desktop"
-        fi 
-
-        sed -i "s/favorites=.*/${favorites}/" ~/.config/xfce4/panel/whiskermenu-1.rc
-    }
-    add_favorites
+if [[ "$to_install" == *"Elixir"* ]]; then
+    bash src/elixir.sh 
+fi
+if [[ "$to_install" == *"Phoenix"* ]]; then
+    bash src/phoenix.sh 
+fi
+if [[ "$to_install" == *"Postgres"* ]]; then
+    bash src/postgres.sh 
+fi
+if [[ "$to_install" == *"Docker"* ]]; then
+    bash src/docker.sh 
+fi
+if [[ "$to_install" == *"Git"* ]]; then
+    bash src/git.sh 
+fi
+if [[ "$to_install" == *"Node"* ]]; then
+    bash src/node.sh 
+fi
+if [[ "$to_install" == *"Modern Terminal"* ]]; then
+    bash src/modern-terminal.sh 
+fi
+if [[ "$to_install" == *"Dracula Theme"* ]]; then
+    bash src/dracula-theme.sh 
+fi
+if [[ "$to_install" == *"VS Code"* ]]; then
+    bash src/vscode.sh 
+fi
+if [[ "$to_install" == *"Insomnia"* ]]; then
+    bash src/insomnia.sh 
+fi
+if [[ "$to_install" == *"DBeaver"* ]]; then
+    bash src/dbeaver.sh 
+fi
+if [[ "$to_install" == *"Obsidian"* ]]; then
+    bash src/obsidian.sh 
+fi
+if [[ "$to_install" == *"Discord"* ]]; then
+    bash src/discord.sh 
+fi
+if [[ "$to_install" == *"Telegram"* ]]; then
+    bash src/telegram.sh 
+fi
+if [[ "$to_install" == *"Remove Junk Apps"* ]]; then
+    bash src/remove-junk-apps.sh
 fi
 
-
-function loop() {
-    checks
-    printf "\nEnter the number of the option to install:\n"
-    printf "(*) - installed\n"
-    printf "(**) - not installed\n\n"
-    printf "After install, restart to apply all changes\n"
-    
-    select opt in "${array[@]}"
-    do
-        case $opt in
-
-        ${array[all]})
-            clear
-            echo "Installing All..."
-            bash src/elixir.sh 
-            bash src/phoenix.sh
-            bash src/postgresql.sh
-            bash src/docker.sh
-            bash src/git.sh
-            bash src/node.sh
-            bash src/vscode.sh
-            bash src/insomnia.sh
-            bash src/dbeaver.sh
-            bash src/modern-terminal.sh
-            bash src/dracula-theme.sh
-            bash src/dev-icons.sh
-            # bash src/brightness-and-temperature.sh
-            bash src/telegram.sh
-            bash src/vlc.sh
-            bash src/chrome.sh
-            bash src/simple_screen_recorder.sh
-            bash src/system-program-problem.sh 
-            bash src/static-noise-power-save.sh 
-            bash src/uninstaller.sh
-            loop
-            ;;
-
-        ${array[elixir]}) 
-            clear && bash src/elixir.sh
-            loop
-            ;;
-
-        ${array[phoenix]}) 
-            clear && bash src/phoenix.sh
-            loop
-            ;;
-
-        ${array[postgresql]}) 
-            clear && bash src/postgresql.sh
-            loop
-            ;;
-
-        ${array[docker]}) 
-            clear && bash src/docker.sh
-            loop
-            ;;
-        
-        ${array[git]}) 
-            clear && bash src/git.sh
-            loop
-            ;;
-        
-        ${array[node]}) 
-            clear && bash src/node.sh
-            loop
-            ;;
-
-        ${array[vscode]}) 
-            clear && bash src/vscode.sh
-            loop
-            ;;
-
-        ${array[insomnia]}) 
-            clear && bash src/insomnia.sh
-            loop
-            ;;
-        
-        ${array[dbeaver]}) 
-            clear && bash src/dbeaver.sh
-            loop
-            ;;
-        
-        ${array[modern_terminal]}) 
-            clear && bash src/modern-terminal.sh
-            loop
-            ;;
-
-        ${array[dracula_theme]}) 
-            clear && bash src/dracula-theme.sh
-            loop
-            ;;
-
-        ${array[dev_icons]})
-            clear && bash src/dev-icons.sh
-            loop
-            ;;
-
-        # ${array[brightness_and_temperature]})
-        #     if [[ "$XDG_CURRENT_DESKTOP" == *"XFCE"* ]]; then
-        #         clear && bash src/brightness-and-temperature.sh
-        #         loop
-        #     else 
-        #         printf "\nPlease, install it only in XFCE graphic interface.\n"
-        #         sleep 2
-        #         loop
-        #     fi
-        #     ;;
-
-        ${array[telegram]}) 
-            clear && bash src/telegram.sh
-            loop
-            ;;
-
-        ${array[vlc]}) 
-            clear && bash src/vlc.sh
-            loop
-            ;;
-
-        ${array[chrome]}) 
-            clear && bash src/chrome.sh
-            loop
-            ;;
-        
-        ${array[simplescreenrecorder]}) 
-            clear && bash src/simple_screen_recorder.sh
-            loop
-            ;;
-        
-        ${array[system_program_problem_detected]}) 
-            clear && bash src/system-program-problem.sh
-            loop
-            ;;
-
-        ${array[static_noise_power_save]}) 
-            clear && bash src/static-noise-power-save.sh 
-            loop
-            ;; 
-
-        ${array[uninstaller]}) 
-            clear && bash src/uninstaller.sh 
-            loop
-            ;; 
-
-        ${array[quit]})
-            echo "Exiting..." && sleep 0.5
-            exit
-            ;;
-        
-        *)
-            echo "Invalid option"
-            ;;
-
-        esac
-    done
-}
-
-loop
+bash src/default-pack.sh
