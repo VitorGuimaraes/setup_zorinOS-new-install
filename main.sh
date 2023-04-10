@@ -35,6 +35,7 @@ flatpak_check=$(flatpak --version)
 if [[ "$flatpak_check" != *"Flatpak"* ]]; then
     printf "\nInstalling Flatpak...\n\n"
     echo $password | sudo -S apt install flatpak -y
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 fi
 
 installed="Already installed"
@@ -191,13 +192,10 @@ if [[ "$to_install" == *"Phoenix"* ]]; then
     bash src/phoenix.sh 
 fi
 if [[ "$to_install" == *"Postgres"* ]]; then
-    bash src/postgres.sh 
+    bash src/postgresql.sh 
 fi
 if [[ "$to_install" == *"Docker"* ]]; then
     bash src/docker.sh 
-fi
-if [[ "$to_install" == *"Git"* ]]; then
-    bash src/git.sh 
 fi
 if [[ "$to_install" == *"Node"* ]]; then
     bash src/node.sh 

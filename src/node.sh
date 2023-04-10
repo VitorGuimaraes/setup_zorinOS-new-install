@@ -2,6 +2,11 @@
 
 printf "\nInstalling NodeJS..."
 
+printf '\n\n# nvm variables' | tee -a $HOME/.bashrc
+printf '\nexport NVM_DIR="$HOME/.nvm"' | tee -a $HOME/.bashrc
+printf '\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' | tee -a $HOME/.bashrc
+printf '\n[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' | tee -a $HOME/.bashrc
+
 printf '\n\n# nvm variables' | tee -a $HOME/.zshrc
 printf '\nexport NVM_DIR="$HOME/.nvm"' | tee -a $HOME/.zshrc
 printf '\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' | tee -a $HOME/.zshrc
@@ -22,9 +27,9 @@ export NVM_DIR="$HOME/.nvm"
 
 nvm install node
 
-node_check=$(whereis node)
 source $HOME/.zshrc
 source $HOME/.bashrc
+node_check=$(whereis node)
 
 if [[ "$node_check" == *"versions/node/"* ]]; then
     node -v

@@ -1,36 +1,29 @@
 #!/bin/bash
 
-sudo apt purge \
-aisleriot \
-'*bluez*' '*brasero*' '*brlapi*' '*brltty*' \
-cheese cdrdao \
-'*dvd*' \
-evolution evolution-ews evolution-common '*evolution-plugin*' emacs '*evince*' \
-'*firefox*' '*folks*' \
-gamemode '*gnome-todo*' '*gedit*' gnome-clocks gnome-user-docs gnome-disk-utility \
-gnome-online-miners gigolo '*gimp*' gnome-accessibility-themes gnome-bluetooth \
-gnome-calendar gnome-contacts gnome-font-viewer gnome-maps gnome-mines gnome-photos 
-gnome-power-manager gnome-screenshot gnome-software gnome-sound-recorder gnome-sudoku 
-gnome-system-monitor gnome-tour gnome-weather \
-info \
-'*libgnome-games*' '*liblouisutdml*' '*libreoffice*' \
-'*mahjongg*' '*mythes*' mousepad \
-'*openoffice*' onboard \
-parole pidgin pitivi ppp \
-quadrapassel \
-'*remmina*' '*rhythmbox*' \
-'*speak*' '*speech*' sgt-puzzles \
-totem totem-common totem-plugins '*transmission*' thunderbird \
-xfburn \
-zorin-connect zorin-gnome-tour-autostart zorin-os-tour-video
+sudo apt purge aisleriot '*bluez*' '*brasero*' '*brlapi*' '*brltty*' -y
+sudo apt purge cheese cdrdao '*dvd*' evolution evolution-ews evolution-common '*evolution-plugin*' emacs '*evince*' '*firefox*' '*folks*' -y 
+sudo apt purge gigolo '*gimp*' gamemode '*gnome-todo*' '*gedit*' gnome-clocks gnome-user-docs gnome-disk-utility gnome-online-miners -y
+sudo apt purge gnome-accessibility-themes gnome-bluetooth gnome-calendar gnome-contacts gnome-font-viewer gnome-maps gnome-mines gnome-photos -y 
+sudo apt purge gnome-power-manager gnome-screenshot gnome-sound-recorder gnome-sudoku -y
+sudo apt purge gnome-system-monitor gnome-tour gnome-weather info -y
+sudo apt purge '*libgnome-games*' '*liblouisutdml*' '*libreoffice*' '*mahjongg*' '*mythes*' mousepad -y
+sudo apt purge '*openoffice*' onboard parole pidgin pitivi ppp -y
+sudo apt purge quadrapassel '*remmina*' '*rhythmbox*' shotwell '*speak*' '*speech*' sgt-puzzles -y 
+sudo apt purge totem totem-common totem-plugins '*transmission*' '*thunderbird*' xfburn xorg-docs-core -y
+sudo apt purge zorin-connect zorin-gnome-tour-autostart zorin-os-tour-video -y
 
 # full remove firefox apt
-sudo rm -Rf $HOME/.mozilla  
-sudo rm -Rf /etc/firefox
-sudo rm -Rf /usr/lib/firefox
-sudo rm -Rf /usr/lib/firefox-addons
-sudo rm -Rf /usr/lib/mozilla
+sudo snap remove --purge '*firefox*'
+sudo rm -rf $HOME/.mozilla  
+sudo rm -rf /etc/firefox
+sudo rm -rf /usr/lib/firefox
+sudo rm -rf /usr/lib/firefox-addons
+sudo rm -rf /usr/lib/mozilla
+sudo rm -rf $HOME/snap
 
-sudo apt clean 
-sudo apt autoremove 
-sudo apt -f install
+# remove snap store
+sudo snap remove --purge snap-store
+
+sudo apt clean -y
+sudo apt autoremove -y 
+sudo apt -f install -y

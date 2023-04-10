@@ -2,7 +2,7 @@
 
 printf "\nInstalling Docker...\n"
 
-sudo apt install ca-certificates curl gnupg
+sudo apt install ca-certificates curl gnupg -y
 
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
@@ -17,6 +17,8 @@ sudo apt update -y
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 sudo docker run hello-world
 
+mkdir $HOME/.docker/
+touch $HOME/.docker/config.jsonf
 echo '{' >> $HOME/.docker/config.json
 echo '\t"psFormat": "\\nName: \\t\\t{{.Names}}\\tCommand: {{.Command}}\\nNetworks: \\t{{.Networks}}\\nRunningFor: \\t{{.RunningFor}}\\nPorts: \\t\\t{{.Ports}}"' >> $HOME/.docker/config.json
 echo '}' >> $HOME/.docker/config.json

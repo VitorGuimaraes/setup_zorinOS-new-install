@@ -1,11 +1,22 @@
 #!/bin/bash
 
-# install dev-icons
-bash src/dev-icons.sh
+# Configure SSD latency
+check_latency=$(cat /etc/default/grub)
+if [[ "$check_latency" != *"max_latency_us=200"* ]]; then
+    sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='"'quiet splash nvme_core.default_ps_max_latency_us=200'"'/" /etc/default/grub
+fi
+
+# Install dash-to-panel
+sudo apt install gnome-tweaks gnome-shell-extensions -y
+git clone https://github.com/home-sweet-gnome/dash-to-panel.git
+(cd dash-to-panel make && make install)
+
+# Uninstall any outdated git
+sudo apt purge git -y
 
 apps_check=$(flatpak list)
 
-# install apps
+# Install apps
 if [[ "$apps_check" != *"google"* ]]; then
     flatpak install flathub com.google.Chrome -y
     gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps | sed s/.$//), 'com.google.Chrome.desktop']" # dock shortcut
@@ -13,7 +24,7 @@ fi
 if [[ "$apps_check" != *"firefox"* ]]; then
     flatpak install flathub org.mozilla.firefox -y # install
     gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps | sed s/.$//), 'org.mozilla.firefox.desktop']" # dock shortcut
-    xdg-settings set default-web-browser org.mozilla.firefox.desktop # set as default browser
+    sudo xdg-settings set default-web-browser org.mozilla.firefox.desktop # set as default browser
 fi
 if [[ "$apps_check" != *"flameshot"* ]]; then
     flatpak install flathub org.flameshot.Flameshot -y
@@ -29,9 +40,6 @@ if [[ "$(whereis simplescreenrecorder)" != *"/usr/bin/simplescreenrecorder"* ]];
 fi
 if [[ "$(whereis fdfind)" != *"/usr/bin/fdfind"* ]]; then
     sudo apt install fd-find -y
-fi
-if [[ "$(whereis batcat)" != *"/usr/bin/batcat"* ]]; then
-    sudo apt install bat -y
 fi
 if [[ "$(whereis batcat)" != *"/usr/bin/batcat"* ]]; then
     sudo apt install bat -y
@@ -54,6 +62,8 @@ if [[ "$(whereis tldr)" != *"/bin/tldr"* ]]; then
     npm install -g tldr
 fi
 
+sudo apt install dconf-editor -y
+
 # Set keyboard shortcuts
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings \
 "[ \
@@ -67,13 +77,20 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings \
     '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/google/'  \
 ]"
 
+gsettings set org.gnome.shell.keybindings screenshot "[]"
+gsettings set org.gnome.shell.keybindings screenshot-window "[]"
+gsettings set org.gnome.shell.keybindings show-screenshot-ui "[]"
+gsettings set org.gnome.shell.keybindings show-screen-recording-ui "[]"
+gsettings set org.gnome.shell.keybindings toggle-message-tray "[]" 
+gsettings set org.gnome.shell.keybindings toggle-application-view "[]" 
+
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot1/ name 'Flameshot'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot1/ command 'flatpak run org.flameshot.Flameshot gui'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot1/ binding '<Shift>Print'
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot2/ name 'Flameshot'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot2/ command 'flatpak run org.flameshot.Flameshot gui'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot2fff/ binding 'Print'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot2/ binding 'Print'
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/vscode/ name 'VSCode'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/vscode/ command 'flatpak run com.visualstudio.code'

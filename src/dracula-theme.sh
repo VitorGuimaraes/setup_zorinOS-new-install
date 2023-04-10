@@ -19,10 +19,13 @@ gsettings set org.gnome.desktop.interface gtk-theme 'Dracula'
 sudo flatpak override --filesystem=$HOME/.themes
 
 # install dconf
-sudo apt-get install dconf-editor -y
+sudo apt install dconf-editor -y
 
 # load settings
 dconf load / < modern-terminal/user.conf
+
+# Apply dev-icons
+bash src/dev-icons.sh
 
 dracula_theme_check=$(gsettings get org.gnome.desktop.interface gtk-theme)
 clear
