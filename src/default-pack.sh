@@ -1,15 +1,17 @@
 #!/bin/bash
 
-# Configure SSD latency
-check_latency=$(cat /etc/default/grub)
-if [[ "$check_latency" != *"max_latency_us=200"* ]]; then
-    sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT='"'quiet splash nvme_core.default_ps_max_latency_us=200'"'/" /etc/default/grub
-fi
-
-# Install dash-to-panel
+# Install dash-to-panel gnome extension
 sudo apt install gnome-tweaks gnome-shell-extensions -y
 git clone https://github.com/home-sweet-gnome/dash-to-panel.git
 (cd dash-to-panel make && make install)
+
+# Install noannoyance gnome extension (fix 'window is ready')
+git clone git@github.com:bdaase/noannoyance.git
+mv noannoyance $HOME/.local/share/gnome-shell/extensions/noannoyance@daase.net
+# Need logout and login again to have effect
+
+# Hide snap folder
+echo snap >> $HOME/.hidden
 
 # Uninstall any outdated git
 sudo apt purge git -y
@@ -83,6 +85,8 @@ gsettings set org.gnome.shell.keybindings show-screenshot-ui "[]"
 gsettings set org.gnome.shell.keybindings show-screen-recording-ui "[]"
 gsettings set org.gnome.shell.keybindings toggle-message-tray "[]" 
 gsettings set org.gnome.shell.keybindings toggle-application-view "[]" 
+gsettings set org.gnome.settings-daemon.plugins.media-keys calculator "['<Super>c']" 
+gsettings set org.gnome.settings-daemon.plugins.media-keys www "['<Super>f']" 
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot1/ name 'Flameshot'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot1/ command 'flatpak run org.flameshot.Flameshot gui'
