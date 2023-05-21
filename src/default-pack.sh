@@ -10,6 +10,12 @@ git clone git@github.com:bdaase/noannoyance.git
 mv noannoyance $HOME/.local/share/gnome-shell/extensions/noannoyance@daase.net
 # Need logout and login again to have effect
 
+# Set night light
+gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
+gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-from 22
+gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-to 21.98
+gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 2700
+
 # Hide snap folder
 echo snap >> $HOME/.hidden
 
@@ -87,6 +93,10 @@ gsettings set org.gnome.shell.keybindings toggle-message-tray "[]"
 gsettings set org.gnome.shell.keybindings toggle-application-view "[]" 
 gsettings set org.gnome.settings-daemon.plugins.media-keys calculator "['<Super>c']" 
 gsettings set org.gnome.settings-daemon.plugins.media-keys www "['<Super>f']" 
+
+# Remove shortcuts to move to workspaces(so don't conflict with vscode copyline shortcuts)
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-down "[]" 
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-up "[]" 
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot1/ name 'Flameshot'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot1/ command 'flatpak run org.flameshot.Flameshot gui'
