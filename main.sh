@@ -88,7 +88,7 @@ function checks() {
         array[docker]=$not_installed
     fi
 
-    if [[ "$git_check" == *"/usr/bin/git"* ]]; then
+    if [[ "$git_check" == *"/usr/share/man/man1/git.1.gz"* ]]; then
         array[git]=$installed
     else
         array[git]=$not_installed
@@ -196,6 +196,9 @@ if [[ "$to_install" == *"Postgres"* ]]; then
 fi
 if [[ "$to_install" == *"Docker"* ]]; then
     bash src/docker.sh 
+fi
+if [[ "$to_install" == *"Git"* ]]; then
+    bash src/git.sh 
 fi
 if [[ "$to_install" == *"Node"* ]]; then
     bash src/node.sh 

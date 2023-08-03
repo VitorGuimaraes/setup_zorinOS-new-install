@@ -11,9 +11,9 @@ sudo apt purge '*openoffice*' onboard parole pidgin pitivi ppp -y
 sudo apt purge quadrapassel '*remmina*' '*rhythmbox*' shotwell '*speak*' '*speech*' sgt-puzzles -y 
 sudo apt purge totem totem-common totem-plugins '*transmission*' '*thunderbird*' xfburn xorg-docs-core -y
 sudo apt purge zorin-connect zorin-gnome-tour-autostart zorin-os-tour-video -y
-
+sudo apt install gnome-control-center
 # full remove firefox apt
-sudo snap remove --purge '*firefox*'
+sudo snap remove --purge firefox
 sudo rm -rf $HOME/.mozilla  
 sudo rm -rf /etc/firefox
 sudo rm -rf /usr/lib/firefox
@@ -27,3 +27,4 @@ sudo snap remove --purge snap-store
 sudo apt clean -y
 sudo apt autoremove -y 
 sudo apt -f install -y
+sudo apt autoremove -y

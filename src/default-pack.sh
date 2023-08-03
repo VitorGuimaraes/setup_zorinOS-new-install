@@ -1,20 +1,28 @@
 #!/bin/bash
 
 # Install dash-to-panel gnome extension
-sudo apt install gnome-tweaks gnome-shell-extensions -y
-git clone https://github.com/home-sweet-gnome/dash-to-panel.git
-(cd dash-to-panel make && make install)
+sudo apt install gnome-shell-extension-manager
+# Run Extension Manager; Browse 'Dash to Panel' ordered by Downloads
 
 # Install noannoyance gnome extension (fix 'window is ready')
 git clone git@github.com:bdaase/noannoyance.git
 mv noannoyance $HOME/.local/share/gnome-shell/extensions/noannoyance@daase.net
-# Need logout and login again to have effect
+# Need logout and login again for have effect
+
+# Install Poppins font
+find Poppins/ -type f -print0 | xargs -0 cp -t $HOME/.local/share/fonts
 
 # Set night light
 gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-from 22
 gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-to 21.98
 gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 2700
+
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+# gsettings set org.gnome.shell.extensions.dash-to-dock dock-position TOP
+# gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
+# gsettings set org.gnome.shell.extensions.dash-to-dock autohide true
 
 # Hide snap folder
 echo snap >> $HOME/.hidden
@@ -71,6 +79,7 @@ if [[ "$(whereis tldr)" != *"/bin/tldr"* ]]; then
 fi
 
 sudo apt install dconf-editor -y
+sudo apt install gnome-shell-extension-manager -y
 
 # Set keyboard shortcuts
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings \
