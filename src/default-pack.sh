@@ -28,10 +28,6 @@ gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 27
 
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
-# gsettings set org.gnome.shell.extensions.dash-to-dock dock-position TOP
-# gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
-# gsettings set org.gnome.shell.extensions.dash-to-dock autohide true
-
 # Hide snap folder
 echo snap >> $HOME/.hidden
 
