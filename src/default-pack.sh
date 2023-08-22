@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Uninstall any outdated git
+sudo apt purge git -y
+
+git_check=$(whereis git)
+if [[ "$git_check" != *"/usr/bin/git"* ]]; then
+    bash src/git.sh
+fi
+
 # Install dash-to-panel gnome extension
 sudo apt install gnome-shell-extension-manager
 # Run Extension Manager; Browse 'Dash to Panel' ordered by Downloads
@@ -27,9 +35,6 @@ gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 # Hide snap folder
 echo snap >> $HOME/.hidden
 
-# Uninstall any outdated git
-sudo apt purge git -y
-
 apps_check=$(flatpak list)
 
 # Install apps
@@ -37,40 +42,51 @@ if [[ "$apps_check" != *"google"* ]]; then
     flatpak install flathub com.google.Chrome -y
     gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps | sed s/.$//), 'com.google.Chrome.desktop']" # dock shortcut
 fi
+
 if [[ "$apps_check" != *"firefox"* ]]; then
     flatpak install flathub org.mozilla.firefox -y # install
     gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps | sed s/.$//), 'org.mozilla.firefox.desktop']" # dock shortcut
     sudo xdg-settings set default-web-browser org.mozilla.firefox.desktop # set as default browser
 fi
+
 if [[ "$apps_check" != *"flameshot"* ]]; then
     flatpak install flathub org.flameshot.Flameshot -y
 fi
+
 if [[ "$apps_check" != *"qBittorrent"* ]]; then
     flatpak install flathub org.qbittorrent.qBittorrent -y
 fi
+
 if [[ "$apps_check" != *"VLC"* ]]; then
     flatpak install flathub org.videolan.VLC -y
 fi
+
 if [[ "$(whereis simplescreenrecorder)" != *"/usr/bin/simplescreenrecorder"* ]]; then
     sudo apt install simplescreenrecorder -y
 fi
+
 if [[ "$(whereis fdfind)" != *"/usr/bin/fdfind"* ]]; then
     sudo apt install fd-find -y
 fi
+
 if [[ "$(whereis batcat)" != *"/usr/bin/batcat"* ]]; then
     sudo apt install bat -y
 fi
+
 if [[ "$(whereis rg)" != *"/usr/bin/rg"* ]]; then
     sudo apt install ripgrep -y
 fi
+
 if [[ "$(whereis micro)" != *"/usr/bin/micro"* ]]; then
     sudo apt install micro -y
 fi
+
 if [[ "$(whereis bashtop)" != *"/usr/bin/bashtop"* ]]; then
     sudo add-apt-repository --yes ppa:bashtop-monitor/bashtop
     sudo apt update -y
     sudo apt install bashtop -y
 fi
+
 if [[ "$(whereis tldr)" != *"/bin/tldr"* ]]; then
     if [[ "$(whereis node)" != *"versions/node/"* ]]; then
         bash src/node.sh

@@ -88,7 +88,7 @@ function checks() {
         array[docker]=$not_installed
     fi
 
-    if [[ "$git_check" == *"/usr/share/man/man1/git.1.gz"* ]]; then
+    if [[ "$git_check" == *"/usr/bin/git"*  ]]; then
         array[git]=$installed
     else
         array[git]=$not_installed

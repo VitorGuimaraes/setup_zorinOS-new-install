@@ -46,27 +46,32 @@ if [[ "$zsh_check" == *"/usr/bin/zsh"* ]]; then
 else 
 	"Shell ZSH not installed!\n"
 fi
+
 if [[ "$hyper_check" == *"/bin/hyper"* ]]; then
     printf "Hyper JS installed!\n" 
 else 
 	"Hyper JS not installed!\n" 
 fi
+
 if [[ "$firacode_check" == *"Fira Code Regular Nerd Font"* ]]; then 
     printf "Fira Code installed!\n" 
 else 
 	"Fira Code not installed!\n" 
 fi
+
 if [[ "$exa_check" == *".cargo/bin/exa"* ]]; then 
     printf "Exa installed!\n" 
 else 
 	printf "Exa not installed!\n" 
 fi
+
 if [[ "$power_level10k_check" == *".powerlevel10k"* ]]; then 
     printf "Powerlevel10k installed!\n" 
 else 
 	printf "Powerlevel10k not installed!\n" 
 fi
-[ "$fzf_check" == *".fzf"* ]]; then 
+
+if [ "$fzf_check" == *".fzf"* ]]; then 
     printf "fzf installed!\n" 
 else 
 	printf "fzf not installed!\n" 
