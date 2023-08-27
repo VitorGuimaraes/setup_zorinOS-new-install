@@ -186,7 +186,7 @@ to_install=$(zenity --list \
 )
 
 if [[ "$to_install" == *"Elixir"* ]]; then
-    bash src/elixir.sh 
+    bash src/asdf_elixir.sh 
 fi
 if [[ "$to_install" == *"Phoenix"* ]]; then
     bash src/phoenix.sh 
