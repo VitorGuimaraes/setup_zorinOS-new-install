@@ -6,10 +6,10 @@ mix local.hex --force
 mix archive.install hex phx_new --force
 sudo apt install inotify-tools -y
 
-phoenix_check=$(ls $HOME/.mix/archives | grep "phx")
+phoenix_check=$(mix phx.new --version)
 clear
 
-if [[ "$phoenix_check" == *"phx_new"* ]]; then
+if [[ "$phoenix_check" == *"Phoenix installer v"* ]]; then
     mix phx.new --version
     printf "Phoenix installed!"
 else
