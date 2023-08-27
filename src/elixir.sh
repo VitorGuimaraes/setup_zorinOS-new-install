@@ -33,7 +33,7 @@ if [[ "$ubuntu_version" != *"trusty"* ||
 fi
 
 # Install Elixir
-sudo git clone -b v1.14.4 https://github.com/elixir-lang/elixir.git /opt/elixir
+sudo git clone -b v1.15.4 https://github.com/elixir-lang/elixir.git /opt/elixir
 sudo make clean test -C /opt/elixir
 sudo ln -sf /opt/elixir/bin/elixir /usr/bin/elixir
 sudo ln -sf /opt/elixir/bin/iex /usr/bin/iex
