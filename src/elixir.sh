@@ -27,7 +27,7 @@ if [[ "$ubuntu_version" != *"trusty"* ||
     sudo dpkg -i esl-erlang_25.3.deb
     sudo rm -v esl-erlang_25.3.deb  
 
-    wget http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb -O libssl1.1_amd64.deb
+    wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb -O libssl1.1_amd64.deb
     sudo dpkg -i libssl1.1_amd64.deb
     sudo rm libssl1.1_amd64.deb
 fi
