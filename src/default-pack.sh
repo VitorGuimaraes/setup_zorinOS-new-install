@@ -34,19 +34,14 @@ echo snap >> $HOME/.hidden
 apps_check=$(flatpak list)
 
 # Install apps
-if [[ "$apps_check" != *"google"* ]]; then
-    flatpak install flathub com.google.Chrome -y
-    gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps | sed s/.$//), 'com.google.Chrome.desktop']" # dock shortcut
+chrome_check=$(whereis google-chrome)
+if [[ "$chrome_check" != *"/usr/bin/google-chrome"* ]]; then
+    bash src/chrome.sh
 fi
 
-if [[ "$apps_check" != *"firefox"* ]]; then
-    flatpak install flathub org.mozilla.firefox -y # install
-    gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps | sed s/.$//), 'org.mozilla.firefox.desktop']" # dock shortcut
-    sudo xdg-settings set default-web-browser org.mozilla.firefox.desktop # set as default browser
-fi
-
-if [[ "$apps_check" != *"flameshot"* ]]; then
-    flatpak install flathub org.flameshot.Flameshot -y
+flameshot_check=$(whereis flameshot)
+if [[ "$flameshot_check" != *"/usr/bin/flameshot"* ]]; then
+    sudo apt install flameshot -y
 fi
 
 if [[ "$apps_check" != *"qBittorrent"* ]]; then
@@ -96,8 +91,7 @@ sudo apt install gnome-shell-extension-manager -y
 # Set keyboard shortcuts
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings \
 "[ \
-    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot1/', \
-    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot2/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/', \
     '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/vscode/', \
     '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/dbeaver/', \
     '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/insomnia/', \
@@ -119,16 +113,12 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys www "['<Super>f']"
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-down "[]" 
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-up "[]" 
 
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot1/ name 'Flameshot'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot1/ command 'flatpak run org.flameshot.Flameshot gui'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot1/ binding '<Shift>Print'
-
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot2/ name 'Flameshot'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot2/ command 'flatpak run org.flameshot.Flameshot gui'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot2/ binding 'Print'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/ name 'Flameshot'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/ command 'flameshot gui'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/ binding 'Print'
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/vscode/ name 'VSCode'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/vscode/ command 'flatpak run com.visualstudio.code'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/vscode/ command 'code'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/vscode/ binding '<Super>V'
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/dbeaver/ name 'DBeaver'
@@ -146,7 +136,3 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/discord/ name 'Discord'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/discord/ command 'flatpak run com.discordapp.Discord'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/discord/ binding '<Super>D'
-
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/google/ name 'Google'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/google/ command 'flatpak run com.google.Chrome'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/google/ binding '<Super>G'
